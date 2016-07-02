@@ -1,0 +1,143 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+{% block script %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/nanobar/0.2.1/nanobar.min.js"></script>
+
+
+
+{% endblock %}
+
+{% block uiblock %}
+
+{% if mode==1 %}
+
+    <div class="chip white-text">
+        Create {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+
+{% endif %}
+
+{% if mode==2 %}
+
+    <div class="chip white-text">
+        View {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+
+
+{% endif %}
+
+{% if mode==3 %}
+
+    <div class="chip green lighten-3">
+        <a href="{{ url_for('.' + routename,m='r', id=request.args.get('id')) }}">View {{ displayname }}</a>
+    </div>
+    <div class="line-linkage"></div>
+
+    <div class="vertical-line"></div>
+    <div class="chip green lighten-3">
+        Update {{ displayname }}
+    </div>
+
+    <div class="line-linkage activelink"></div>
+
+
+    <div class="vertical-line"></div>
+    <div class="chip red lighten-2">
+        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}"> Delete
+            {{ displayname }} </a>
+    </div>
+    <div class="line-linkage"></div>
+
+{% endif %}
+
+{% if mode==4 %}
+
+    <div class="chip amber lighten-3">
+        Delete {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+{% endif %}
+{% endblock %}
+
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.label.text == 'School' %}
+
+                {{ h(value=key_id) }}
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+            {% if h.label.text =='School' %}
+
+                {{ h(type='hidden',value=key_id) }}
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}
