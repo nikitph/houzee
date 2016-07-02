@@ -1,0 +1,88 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="icon-block center">
+
+                    <div class="chip blue white-text">
+                        <div class="img2 center blue-text">1</div>
+                        Township Setup
+                    </div>
+                    <div class="line-linkage activelink"></div>
+
+                    {% if mode == 1 %}
+                    <div class="vertical-line"></div>
+                    <div class="chip blue white-text">
+                        <div class="img2 center blue-text">2</div>
+                        Building Setup
+                    </div>
+                    <div class="line-linkage"></div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <div class="col s12 m6">
+                <div class="icon-block">
+                    <div class="icon-container">
+
+                        <div class="center btp">
+                            <div class="center">
+                                <button class="btn-flat white black-text disabled" name="action"
+                                        style="margin-top: -22px">Township Information
+                                </button>
+                            </div>
+                            <br>
+                            {% if mode == 1 %}
+                                <form action='{{ url_for('.township',s='t') }}' method="post">
+
+                            {% else %}
+
+                                <form action='{{ url_for('.township',s='f') }}' method="post">
+                            {% endif %}
+
+
+
+
+                            <div class="row">
+                                {% for h in form %}
+                                   {{ renderer(h,mode) }}
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="row center">
+                                <button class="btn white black-text btp"
+                                        type="submit" style="margin-bottom: -55px"
+                                >Submit
+                                    <i class="material-icons right blue-text">send</i>
+                                </button>
+
+                            </div>
+
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="icon-block">
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

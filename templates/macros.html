@@ -1,0 +1,226 @@
+{% macro renderer(h, mode) %}
+    {% if mode == 1 %}
+
+        {% if h.type == 'TextAreaField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label }}
+                {{ h(class='materialize-textarea') }}
+            </div>
+
+        {% elif h.type == 'RadioField' %}
+            <div class="input-field col s12 m6">
+                {{ h.label }}
+                <br>
+
+                {% for x in h %}
+                    <p>
+
+                        {{ x }} {{ x.label }}
+                    </p>
+                {% endfor %}
+            </div>
+
+        {% elif 'Date' in h.label.text %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}                {{ h.label }}
+                {{ h(type='date', class='datepicker') }}
+
+            </div>
+
+        {% elif 'Time' in h.label.text %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label }}
+                {{ h( class='timepicker') }}
+
+            </div>
+
+        {% elif h.type == 'SelectField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    {{ h(onChange= h.description) }}
+                    <label>{{ h.label.text }}</label>
+
+                {% else %}
+                    {{ h }}
+                    <label>{{ h.label.text }}</label>
+                {% endif %}
+            </div>
+
+        {% elif h.type == 'ModelSelectField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    {{ h(onChange= h.description) }}
+                    <label>{{ h.label.text }}</label>
+
+                {% else %}
+
+                    {{ h }}
+                    <label>{{ h.label.text }}</label>
+
+                {% endif %}
+            </div>
+
+
+        {% elif not (h.widget.input_type == 'hidden') %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label }}
+                {{ h }}
+            </div>
+
+        {% else %}
+            <div class="col s12 m6">
+                {{ h }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if mode == 2 %}
+
+        {% if h.type == 'TextAreaField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label(class='active') }}
+                {{ h(class='materialize-textarea', disabled='') }}
+            </div>
+
+        {% elif h.type == 'RadioField' %}
+            <div class="input-field col s12 m6">
+                {{ h.label }}
+                <p>
+                    {% for x in h %}
+                        {{ x(disabled ='') }} {{ x.label }}
+                    {% endfor %}
+                </p>
+            </div>
+
+        {% elif h.type == 'SelectField' %}
+            <div class="input-field col s12 m6">
+                {{ h.label(class='active') }}
+                {{ h(disabled='') }}
+            </div>
+
+        {% elif h.type == 'ModelSelectField' %}
+            <div class="input-field col s12 m6">
+
+                {{ h.label(class='active') }}
+
+                {{ h(disabled='') }}
+
+            </div>
+
+
+
+        {% elif not (h.widget.input_type == 'hidden') %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label(class='active') }}
+                {{ h(disabled='') }}
+            </div>
+
+        {% else %}
+            <div class="col s12 m6">
+                {{ h }}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    {% if mode == 3 %}
+
+        {% if h.type == 'TextAreaField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label(class='active') }}
+                {{ h(class='materialize-textarea') }}
+            </div>
+
+        {% elif h.type == 'RadioField' %}
+            <div class="input-field col s12 m6">
+                {{ h.label }}
+                <br>
+
+                {% for x in h %}
+                    <p>
+
+                        {{ x }} {{ x.label }}
+                    </p>
+                {% endfor %}
+            </div>
+
+        {% elif 'Date' in h.label.text %}
+            <div class="input-field col s12 m6">
+
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}                {{ h.label(class='active') }}
+                {{ h(type='date', class='datepicker') }}
+
+            </div>
+
+        {% elif 'Time' in h.label.text %}
+            <div class="input-field col s12 m6">
+
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}
+                {{ h.label(class='active') }}
+                {{ h( class='timepicker') }}
+
+            </div>
+
+        {% elif h.type == 'SelectField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    {{ h(onChange= h.description) }}
+                    <label>{{ h.label.text }}</label>
+
+                {% else %}
+                    {{ h }}
+                    <label>{{ h.label.text }}</label>
+                {% endif %}
+            </div>
+
+        {% elif h.type == 'ModelSelectField' %}
+            <div class="input-field col s12 m6">
+                {% if h.description %}
+                    {{ h(onChange= h.description) }}
+                    <label>{{ h.label.text }}</label>
+
+                {% else %}
+
+                    {{ h }}
+                    <label>{{ h.label.text }}</label>
+
+                {% endif %}
+            </div>
+
+
+        {% elif not (h.widget.input_type == 'hidden') %}
+            <div class="input-field col s12 m6">
+
+                {% if h.description %}
+                    <i class="material-icons prefix">{{ h.description|safe }}</i>
+                {% endif %}                {{ h.label(class='active') }}
+                {{ h }}
+
+            </div>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+

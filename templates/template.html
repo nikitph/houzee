@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="/static/css/materialize.css" rel="stylesheet">
+    <link href="/static/css/main/app.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.filedrop.js"></script>
+    <script type="text/javascript" src="/static/js/upload.js"></script>
+    <script type="text/javascript" src="/static/js/clockpicker.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+            $('.tooltipped').tooltip({delay: 20});
+
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
+            $('.timepicker').pickatime({
+                twelvehour: false,
+                donetext: 'Done',
+                beforeShow: function () {
+                    activeElement = $(document.activeElement);
+                    activeForm = activeElement.closest('form')[0];
+
+                    // Remove existing validation errors
+                    //activeForm.ClientSideValidations.removeError(activeElement);
+
+                    // Prevent a validation error occurring when element un-focusses
+                    //activeElement.disableClientSideValidations();
+                },
+                afterDone: function () {
+                    activeElement = $(document.activeElement);
+                    //$(activeElement).enableClientSideValidations();
+                }
+            });
+            $('.modal-trigger').leanModal();
+
+            var key = '{{ g.user.get_id() }}';
+            $('#noti').text(0);
+
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                accepts: "application/json; charset=utf-8",
+                url: 'http://0.0.0.0:5001/user?where={"_id": "' + key + '"}',
+                success: function (vehicles) {
+                    for (var i = 0; i < vehicles._items.length; i++) {
+                        var b = vehicles._items[i].notif;
+                        var y = 0;
+                        if (b != null)
+                        {
+                            for (var x = 0; x < b.length; x++) {
+                                c = b[x];
+                                if (!c.read) {
+                                    $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + c.url + ' class="collection-item">' + c.subject + ' </a>');
+                                    y++;
+                                }
+
+                            }
+                        }
+                        $('#noti').text(y);
+                    }
+
+                }
+            });
+
+
+        });
+    </script>
+
+    <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+{#        $(document).ready(function () {
+            namespace = '/test'; // change to an empty string to use the global namespace
+            // the socket.io documentation recommends sending an explicit package upon connection
+            // this is specially important when using the global namespace
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.on('connect', function () {
+                socket.emit('join', {room: 1});
+            });
+
+            socket.on('my response', function (msg) {
+                Materialize.toast(msg.mtotal + ': ', 1000);
+            });
+
+            socket.on('notification', function (event) {
+                $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + event.id + ' class="collection-item">' + event.subject + ' </a>');
+                var count = parseInt($('#noti').text());
+                if(!isNaN(count))
+                {
+                    $('#noti').text(count + 1);
+                }
+                else
+                         {
+                    $('#noti').text(0);
+                }
+
+            });
+
+
+        });#}
+        function submitFunc(i) {
+            namespace = '/test'; // change to an empty string to use the global namespace
+            // the socket.io documentation recommends sending an explicit package upon connection
+            // this is specially important when using the global namespace
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.emit('comment', i);
+            $("#message").val('');
+        }
+
+        function clearNot() {
+            $('#dropdown3').remove('a');
+            $('#noti').text(0);
+
+            namespace = '/test'; // change to an empty string to use the global namespace
+            // the socket.io documentation recommends sending an explicit package upon connection
+            // this is specially important when using the global namespace
+            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+            socket.emit('clear not', {
+                data: 'clear'
+
+            });
+            Materialize.toast('<i class="material-icons left">info_outline</i>Alerts cleared', 5000);
+
+            return true;
+        }
+    </script>
+
+    {% block script %}
+
+
+    {% endblock %}
+
+
+    <style>
+        /* fade in for windows */
+        .animated {
+            -webkit-animation-duration: 1.4s;
+            animation-duration: 1.4s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+        }
+
+        html {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            font-family: "Raleway", 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 200;
+        }
+
+
+    </style>
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+
+
+<div class="topbar">
+    <div class="top-logo">
+        <div class="logo-container center">
+            <a href="/resident?m=l" class="center brand-logo black-text"><img class="anm"
+                                                                             src="/static/img/h4.svg" height="50px"
+                                                                             style="margin-top: 4px"></a></div>
+    </div>
+    <div class="action-menu">
+        <div class="township-name center">
+
+            {{ g.user.get_building() }}
+
+        </div>
+
+        <div class="notifier center" style="margin: auto">
+
+            <a href="#!"><i class="material-icons dropdown-button hvr-bounce-in" data-activates='dropdown3'
+                            data-alignment="right">notifications</i></a>
+            <span class="new badge" id="noti"></span>
+            <ul id='dropdown3' class='dropdown-content-topbar collection'>
+                <li class="collection-item">
+                    <a class="btn-flat blue-text text-darken-3"
+                       onclick="clearNot();"><i class="material-icons right blue-text">clear_all</i>Alerts</a>
+            </ul>
+
+        </div>
+        <div class="name-menu">
+
+
+            <div class="hvr-bounce-in">
+                <img src='{{ g.user.image }}' width=35px height=35px style="border-radius: 50%; margin: auto">
+            </div>
+            <div style="margin:auto;">
+                <i class="material-icons dropdown-button" data-activates='dropdown2' data-alignment="right">keyboard_arrow_down</i>
+                <ul id='dropdown2' class='dropdown-content-topbar'>
+                    <li>
+                        <a href="#!">{% if g.user.first_name %} {{ g.user.first_name.capitalize() }} {% endif %}
+                            {% if g.user.last_name %}
+                                {{ g.user.last_name.capitalize() }} {% endif %}</a></li>
+                    <li class="divider"></li>
+                    <li class="center"><a href="{{ url_for('.profile') }}" class="center">Edit Profile</a></li>
+                    <li class="center"><a href="/logout" class="center">Logout</a></li>
+
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="signoff center">
+            <a href="/logout"></a>
+        </div>
+    </div>
+</div>
+
+<div class="main ">
+    <div class="nav-side hide-on-med-and-down">
+        <nav>
+            <ul class="hide-on-med-and-down">
+
+
+                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Resident dashboard "><a
+                        href={{ url_for('.resident',m='l') }}><i class="material-icons blue-text">assignment_ind</i></a>
+                </li>
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Subjects"><a#}
+{#                        href={{ url_for('.subject',m='l') }}><i class="material-icons blue-text">subject</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Teacher Management"><a#}
+{#                        href={{ url_for('.teacher',m='l') }}><i#}
+{#                        class="material-icons blue-text">supervisor_account</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Classroom Management"><a#}
+{#                        href={{ url_for('.classroom',m='l') }}><i#}
+{#                        class="material-icons blue-text">blur_linear</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a#}
+{#                        href={{ url_for('.event',m='l') }}><i#}
+{#                        class="material-icons blue-text">event</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Bulk Notifications"><a#}
+{#                        href={{ url_for('.bulknotify',m='l') }}><i#}
+{#                        class="material-icons blue-text">sms</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Transportation Dashboard"><a#}
+{#                        href={{ url_for('.transportd') }}><i#}
+{#                        class="material-icons blue-text">directions_bus</i></a></li>#}
+{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Hostel Manager"><a#}
+{#                        href={{ url_for('.hosteld') }}><i#}
+{#                        class="material-icons blue-text">hotel</i></a></li>#}
+
+            </ul>
+        </nav>
+
+        <div class="bottom-links center">
+
+            <a href={{ url_for('.setupd') }}  class="tooltipped" data-position="right" data-delay="50"
+               data-tooltip="Core Setup "><i class="material-icons blue-text">more_vert</i></a>
+
+        </div>
+
+    </div>
+
+    <div class="content-side animated fadeIn">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+
+</div>
+
+</body>
+{#<script>#}
+{##}
+{#    var source = new EventSource("{{ url_for('sse.stream') }}");#}
+{#    source.addEventListener('greeting', function (event) {#}
+{#        var data = JSON.parse(event.data);#}
+{#        $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + data.id + ' class="collection-item">' + data.subject + ' </a>');#}
+{#        var count = parseInt($('#noti').text());#}
+{#        $('#noti').text(count + 1);#}
+{#    }, false);#}
+{##}
+{#</script>#}
+</html>
+
+
+
+
+
+

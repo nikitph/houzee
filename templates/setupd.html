@@ -1,0 +1,45 @@
+{% extends "template.html" %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s6 m6 center">
+                <div class="icon-block center">
+
+                    <a href="{{ url_for('.township', m='u',id=iid)}}"><i class="material-icons large red lighten-3 white-text">account_balance</i></a>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Update Township Information</div>
+                <br>
+                <div id="hostels" class="collection">
+
+                </div>
+
+            </div>
+
+            <div class="col s6 m6 center">
+                <div class="icon-block center">
+
+                    <a href="{{ url_for('.building', m='u',id=g.user.buildingid)}}"><i class="material-icons large red lighten-3 white-text">building</i></a>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Update Building Information</div>
+                <br>
+                <div id="rooms" class="collection">
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+{% endblock %}

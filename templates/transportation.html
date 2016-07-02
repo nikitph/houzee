@@ -1,0 +1,153 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+{% block script %}
+    <script>
+        function copyTextValue() {
+            var text1 = document.getElementById("resident_id").value;
+            var url1 = '/resident?m=r';
+            {% if mode==2 or mode==3 %}
+
+                document.getElementById("backlink").href = url1 + '&id=' + text1;
+
+            {% endif %}
+        }
+        $(document).ready(function () {
+            $('select').material_select();
+            copyTextValue();
+        });
+
+
+    </script>
+
+    <script type="text/javascript" charset="utf-8">
+        function activateSlave(sel) {
+
+            var key = sel.value;
+            $('#stop').find('option').removeAttr('disabled');
+
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                accepts: "application/json; charset=utf-8",
+                url: 'http://127.0.0.1:5001/busroute?where={"_id": "' + key + '"}',
+                success: function (vehicles) {
+                    for (var i = 0; i < vehicles._items.length; i++) {
+                        var b = vehicles._items[i];
+                        var c = b.stops;
+                        var d = '';
+                        for (var e in c) {
+                            d += 'option[value!="' + c[e] + '"]';
+                        }
+                        $('#stop').removeAttr('disabled');
+                        $('select').material_select();
+                        $('#stop').find(d).attr('disabled', 'disabled');
+                        $('select').material_select();
+
+
+                    }
+
+                }
+            });
+
+        }
+    </script>
+
+
+{% endblock %}
+
+{% block uiblock %}
+
+    {% include 'uiblockstu.html' %}
+
+{% endblock %}
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.label.text == 'Resident Id' %}
+
+                {{ h(value=key_id) }}
+
+            {% elif h.label.text =='Stop' %}
+                <div class="input-field col s12 m6">
+                    {{ h(disabled='') }}
+                    {{ h.label() }}
+
+                </div>
+
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+        >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+        >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}
+
+{% block delete_mode %}
+    <div class="center">
+
+        <div>
+            <div class="completed"><br>
+                <br><br><br><br> {{ displayname }} Successfully Deleted <br>
+                <i class="material-icons large green-text">done</i>
+                <br><br><br><br>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

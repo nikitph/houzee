@@ -1,0 +1,60 @@
+.chip {
+  display: inline-block;
+  height: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, .6);
+  line-height: 32px;
+  padding: 0 12px;
+  border-radius: 16px;
+  background-color: $chip-bg-color;
+
+  .img2 {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    border: 1px solid darkgreen;
+    background-color: white;
+  }
+
+  a {
+    color: white;
+  }
+
+  img {
+    float: left;
+    margin: 0 8px 0 -12px;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+  }
+
+  .active2 {
+    border: 1px solid darkred;
+    background-color: rgba(243, 156, 18, 1.0)
+  }
+
+  i.material-icons {
+    cursor: pointer;
+    float: right;
+    font-size: 16px;
+    line-height: 32px;
+    padding-left: 8px;
+  }
+}
+
+.submenu-chip {
+  margin-bottom: 5px;
+  margin-right: 4px;
+}
+
+.search-chip {
+  margin-bottom: 5px;
+  margin-right: 4px;
+  height: 25px;
+  line-height: 25px;
+  padding: 0 6px;
+  font-size: 12px;
+}

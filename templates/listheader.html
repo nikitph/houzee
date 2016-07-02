@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="col s6 m4">
+        <input id="searchlist" class="search" placeholder="Search {{ displayname }}"/>
+    </div>
+    <div class="col s6 m4">
+{#        <select id="sortlist">#}
+{#            <option value="" disabled selected>Sort {{ displayname }} list by</option>#}
+{##}
+{#            {% for x in form %}#}
+{#                {% if not x.widget.input_type == 'hidden' %}#}
+{#                    <option value="{{ x.label.text }}">{{ x.label.text }}</option>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#        </select>#}
+    </div>
+    <div class="col s6 m2">
+        <button class="btn-flat blue white-text listheaderbtn">
+            <a class="white-text" href={{ url_for('.' + routename ,m='c') }}>
+                Create New</a>
+        </button>
+    </div>
+</div>

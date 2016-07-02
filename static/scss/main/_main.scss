@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  height: calc(100vh - #{$navbar-height});
+  width: 100%;
+
+  & .nav-side {
+    height: 100%;
+    width: $navbar-height;
+    border-right: 1px solid $border-color;
+
+    & .bottom-links {
+      position: relative;
+      bottom:70px;
+    }
+  }
+
+  & .content-side {
+
+    width: calc(100% - #{$navbar-height});
+    padding: 20px;
+
+    @media #{$medium-and-down} {
+      width: 100%;
+      padding: 20px;
+    }
+
+  }
+
+}
+

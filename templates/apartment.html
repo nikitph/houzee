@@ -1,0 +1,128 @@
+{% extends "crudtemplate.html" %}
+
+{% block uiblock %}
+
+    {% include 'uiblock.html' %}
+
+{% endblock %}
+
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.type == 'TextAreaField' %}
+                <div class="col s12 m6">
+                    {{ h.label }}
+                    {{ h(class='materialize-textarea') }}
+
+                </div>
+
+            {% elif h.label.text == 'Building' %}
+
+                {{ h(value=key_id, type='hidden') }}
+
+            {% elif h.label.text == 'Standard' %}
+                <div class="input-field col s12 m6">
+                    {{ h.label }}
+                    {{ h(placeholder='Please enter apartment name here') }}
+
+                </div>
+
+            {% elif h.label.text == 'Sections' %}
+                <div class="input-field col s12 m6">
+                    {{ h.label }}
+                    {{ h(placeholder='Please enter No of sections here') }}
+
+                </div>
+
+            {% elif not h.widget.input_type == 'hidden' %}
+                <div class="col s12 m6">
+
+                    {{ h.label }} {{ h }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+
+                {{ h(type='hidden') }}
+
+
+            {% elif h.label.text =='Csrf Token' %}
+                {{ h(type='hidden') }}
+
+            {% elif h.label.text == 'Street Address' %}
+                <div class="col s12 m6">
+
+                    {{ h.label }} {{ h(class='materialize-textarea', disabled='') }}
+
+                </div>
+            {% else %}
+                <div class="col s12 m6">
+                    {{ h.label }}
+                    {{ h(disabled='') }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+                {{ h(type='hidden',value=key_id) }}
+
+            {% elif h.label.text =='Csrf Token' %}
+                {{ h(type='hidden') }}
+
+            {% elif h.label.text == 'Street Address' %}
+                <div class="col s12 m6">
+
+                    {{ h(class='materialize-textarea') }}
+
+                </div>
+            {% else %}
+                <div class="col s12 m6">
+                    {{ h.label }}
+                    {{ h }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}

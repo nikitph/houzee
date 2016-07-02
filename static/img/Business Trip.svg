@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="122px" height="115px" viewBox="0 0 122 115" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>Business Trip</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Business-Trip">
+            <path d="M67,115 C97.3756612,115 122,90.3756612 122,60 C122,29.6243388 97.3756612,5 67,5 C36.6243388,5 12,29.6243388 12,60 C12,90.3756612 36.6243388,115 67,115 Z" id="Oval-43" fill-opacity="0.719999969" fill="#FFD00E"></path>
+            <path d="M22.3076923,44.7083333 C9.98749404,44.7083333 0,34.700032 0,22.3541667 C0,10.0083013 9.98749404,0 22.3076923,0 C33.1025275,0 42.1065246,7.68346308 44.1706204,17.8905988 C44.3182828,17.8857677 44.46655,17.8833333 44.6153846,17.8833333 C52.0075036,17.8833333 58,23.8883141 58,31.2958333 C58,38.7033525 52.0075036,44.7083333 44.6153846,44.7083333 L22.3076923,44.7083333 Z" id="Oval-43" fill="#89D4FD"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="static/scss/main/_main.scss"/>
+    <link rel="stylesheet" type="text/css" href="static/scss/main/_main.scss"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link href="/static/css/materialize.css" rel="stylesheet">
+    <link href="/static/css/main/app.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/hover.css/2.0.2/css/hover-min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script type="text/javascript" src="static/js/jquery.filedrop.js"></script>
+    <script type="text/javascript" src="static/js/upload.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
+            $('.modal-trigger').leanModal();
+
+        });
+    </script>
+    {% block script %}
+
+
+    {% endblock %}
+
+
+    <style>
+        /* fade in for windows */
+        .animated {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .fadeIn {
+            -webkit-animation-name: fadeIn;
+            animation-name: fadeIn;
+        }
+
+        html {
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            font-family: "Avenir", 'Helvetica Neue', 'Lato', 'Segoe UI', Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-weight: 200;
+        }
+
+
+    </style>
+
+    {% block style %}
+    {% endblock %}
+
+</head>
+
+
+<body>
+<div class="topbar" style="border-bottom: none">
+    <div class="top-logo" style="width: 0; border-bottom: none">
+
+        </div>
+        <div class="action-menu" style="border-bottom: none">
+            <div class="township-name center" style="border-bottom: none">
+
+                <div>
+                    <a href="/" class="center brand-logo black-text"><img class="anm"
+                                                                          src="/static/img/ashrm.svg" height="49px" width="49px"
+                            style="margin-top: 4px;border: 1px solid #8b0000;border-radius: 50%; margin-left: -64px; z-index: 2000"></a>
+                </div>
+            </div>
+        </div>
+        <div class="name-menu center">
+
+
+        </div>
+
+        <div class="signoff center">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+
+
+    <div class="content-side animated fadeIn">
+
+    <div class="row" style="z-index: -100; margin-top: -10px">
+        <div class="col s12 m2">
+            <div class="white-text">
+                <br>
+            </div>
+        </div>
+        <div class="col s12 m8">
+            <br>
+            <img src="/static/img/edu1.png" class="responsive-img">
+        </div>
+        <div class="col s12 m2">
+            <div class="white-text">
+                <br>
+            </div>
+        </div>
+    </div>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
+
+
+
+
+
+

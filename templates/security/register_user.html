@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="row">
+
+        <div class="col s12 m3">
+            <div class="black-text">
+                <br>
+            </div>
+        </div>
+
+        <div class="col s12 m6 btp z-depth-1"
+             style="margin-top: -150px; z-index: 50; background-color: rgb(249, 249, 249)">
+            <div class="center">
+                {% from "security/_macros.html" import render_field_with_errors, render_field %}
+                <div class="center">
+                    <button class="btn-flat white blue-text btp disabled" name="action" style="margin-top: -22px">
+                        Register
+                    </button>
+                </div>
+                <br>
+
+                <form action="{{ url_for_security('register') }}" method="POST" name="register_user_form">
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            {{ register_user_form.hidden_tag() }}
+                            {{ render_field_with_errors(register_user_form.first_name) }}
+
+                        </div>
+                        <div class="input-field col s12 m6">
+
+                            {{ render_field_with_errors(register_user_form.last_name) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            {{ render_field_with_errors(register_user_form.email) }}
+                        </div>
+                        <div class="input-field col s12 m6">
+                            {{ render_field_with_errors(register_user_form.phone) }}
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12 m6">
+                            {{ render_field_with_errors(register_user_form.password) }}
+                        </div>
+                        <div class="input-field col s12 m6">
+                            {% if register_user_form.password_confirm %}
+                                {{ render_field_with_errors(register_user_form.password_confirm) }}
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="center">
+                        <button class="btn white black-text btp" type="submit" name="action"
+                                style="margin-bottom: -22px;">Submit
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+
+        <div class="col s12 m3">
+            <div class="white-text">
+                <br>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

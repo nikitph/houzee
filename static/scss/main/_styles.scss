@@ -1,0 +1,134 @@
+.btp {
+  border: 1px solid darkgreen;
+  border-radius: 8px;
+  z-index: 70;
+  overflow: visible;
+}
+
+.vertical-line {
+  height: 50px;
+  width: 0px;
+  left: 50%;
+  position: relative;
+  border-left: 1px solid rgb(228, 228, 238);
+  z-index: -999;
+}
+
+.line-linkage {
+  width: calc(50% + 1.5rem);
+  height: 0px;
+  background-color: green;
+  position: relative;
+  top: 0%;
+  right: -50%;
+  z-index: -1000;
+  margin-top: -16px;
+  //  border-top: 1px solid green;
+}
+
+.activelink {
+  height: 1px
+}
+
+.animated {
+  -webkit-animation-duration: 1.2s;
+  animation-duration: 1.2s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+.listheaderbtn {
+  border-radius: 15px;
+
+}
+
+.toparrow {
+
+  @include arrow(top, #000, 5px, false);
+
+}
+
+#dropbox {
+  border-top: 1px solid grey;
+  border-bottom: 1px solid grey;
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.02);
+
+  position: relative;
+  min-height: 100px;
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+#dropbox:before {
+  border-radius: 3px 3px 0 0;
+}
+
+#dropbox .preview {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  left: calc(50% - 25px);
+  text-align: center;
+}
+
+#dropbox .preview img {
+  max-width: 40px;
+  max-height: 40px;
+  border: 3px solid #fff;
+  display: block;
+  box-shadow: 0 0 2px #000;
+}
+
+#dropbox .imageHolder {
+  display: inline-block;
+  position: relative;
+}
+
+#dropbox .progressHolder {
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+}
+
+#dropbox .progress {
+  background-color: #2586d0;
+  position: absolute;
+  height: 100%;
+  left: 0;
+  width: 0;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  -moz-transition: 0.25s;
+  -webkit-transition: 0.25s;
+  -o-transition: 0.25s;
+  transition: 0.25s;
+}
+
+#dropbox .preview.done .progress {
+  width: 100% !important;
+}

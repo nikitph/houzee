@@ -1,0 +1,130 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+
+{% block script %}
+    <script>
+        function copyTextValue() {
+            var text1 = document.getElementById("resident_id").value;
+            var url1 = '/resident?m=r';
+            document.getElementById("backlink").href = url1 + '&id=' + text1;
+        }
+        $(document).ready(function () {
+            $('select').material_select();
+            copyTextValue();
+        });
+
+    </script>
+
+
+{% endblock %}
+
+{% block style %}
+<style>
+
+.InputAddOn {
+  display: flex;
+}
+
+.InputAddOn-field {
+  flex: 1;
+  /* field styles */
+}
+
+.InputAddOn-item {
+  /* item styles */
+}
+
+</style>
+
+{% endblock %}
+
+{% block uiblock %}
+
+    {% include 'uiblockstu.html' %}
+
+{% endblock %}
+
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.label.text == 'Resident Id' %}
+
+                {{ h(value=request.args['sid']) }}
+
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}
+
+{% block delete_mode %}
+    <div class="center">
+
+        <div>
+            <div class="completed"><br>
+                <br><br><br><br> {{ displayname }} Successfully Deleted <br>
+                <i class="material-icons large green-text">done</i>
+                <br><br><br><br>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,152 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+
+{% block uiblock %}
+
+    {% include 'uiblock.html' %}
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript" charset="utf-8">
+        $(window).load(function() {
+
+            var sel = $('#subjects');
+            var building = '{{ g.user.buildingid|safe }}';
+
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                accepts: "application/json; charset=utf-8",
+                url: 'http://127.0.0.1:5001/subject',
+                success: function (subjects) {
+                                            var d = '';
+                    for (var i = 0; i < subjects._items.length; i++) {
+                        var b = subjects._items[i];
+                        var c = b._id;
+                        if (b.building == building)
+                        {
+                            d += 'option[value!="' + c + '"]';
+                        }
+                    }
+                        sel.find(d).remove();
+                        $('select').material_select();
+
+
+
+                }
+            });
+
+        });
+    </script>
+
+
+{% endblock %}
+
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.label.text == 'Building' %}
+
+                {{ h(value=g.user.buildingid) }}
+
+            {% elif h.label.text == 'Gender' %}
+                <div class="switch col s12 m6">
+                    <label>
+                        Male
+                        {{ h }} <span class="lever"></span>
+                        Female
+                    </label>
+                </div>
+                <br>
+                <br>
+
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+            {% if h.label.text == 'Gender' %}
+                <div class="switch col s12 m6">
+                    <label>
+                        Male
+                        {{ h(disabled='') }} <span class="lever"></span>
+                        Female
+                    </label>
+                </div>
+                <br>
+                <br>
+            {% else %}
+
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+            {% if h.label.text == 'Gender' %}
+                <div class="switch col s12 m6">
+                    <label>
+                        Male
+                        {{ h }} <span class="lever"></span>
+                        Female
+                    </label>
+                </div>
+                <br>
+                <br>
+            {% else %}
+
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}

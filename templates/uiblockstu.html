@@ -1,0 +1,82 @@
+{% if mode==1 %}
+
+    <div class="chip blue white-text">
+        Create {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+
+{% endif %}
+
+{% if mode==2 %}
+
+    <div class="chip blue white-text">
+        View {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+    <div class="vertical-line"></div>
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='u', id=request.args.get('id')) }}">Update {{ displayname }}</a>
+    </div>
+
+    <div class="line-linkage"></div>
+
+
+    <div class="vertical-line"></div>
+    <div class="chip red lighten-2">
+        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}">Delete
+            {{ displayname }} </a>
+    </div>
+    <div class="line-linkage"></div>
+
+     <div class="vertical-line"></div>
+        <div class="chip blue white-text">
+            <a id="backlink" href=""> < Back to Resident </a>
+        </div>
+
+
+{% endif %}
+
+{% if mode==3 %}
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='r', id=request.args.get('id')) }}">View {{ displayname }}</a>
+    </div>
+    <div class="line-linkage"></div>
+
+    <div class="vertical-line"></div>
+    <div class="chip blue white-text">
+        Update {{ displayname }}
+    </div>
+
+    <div class="line-linkage activelink"></div>
+
+
+    <div class="vertical-line"></div>
+    <div class="chip red lighten-2">
+        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}"> Delete
+            {{ displayname }} </a>
+    </div>
+    <div class="line-linkage"></div>
+
+    <div class="vertical-line"></div>
+        <div class="chip blue white-text">
+            <a id="backlink" href=""> < Back to Resident </a>
+        </div>
+
+{% endif %}
+
+{% if mode==4 %}
+
+    <div class="chip amber lighten-3">
+        Delete {{ displayname }}
+    </div>
+    <div class="line-linkage activelink"></div>
+
+    <div class="vertical-line"></div>
+        <div class="chip blue white-text">
+            <a id="backlink" href=""> < Back to Resident </a>
+        </div>
+
+{% endif %}

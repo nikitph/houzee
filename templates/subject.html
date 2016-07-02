@@ -1,0 +1,91 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+{% block script %}
+    <script>
+
+    </script>
+
+
+{% endblock %}
+
+{% block uiblock %}
+
+    {% include 'uiblock.html' %}
+
+{% endblock %}
+
+
+{% block create_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {% if h.label.text == 'Building' %}
+
+                {{ h(value=key_id) }}
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="row">
+        {% for h in form %}
+
+            {{ renderer(h, mode) }}
+
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+
+                {{ h(type='hidden',value=key_id) }}
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+                >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}

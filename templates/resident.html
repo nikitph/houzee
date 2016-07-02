@@ -1,0 +1,268 @@
+{% extends "crudtemplate.html" %}
+{% from 'macros.html' import renderer %}
+
+{% block uiblock %}
+    <br>
+
+    {% include 'uiblock.html' %}
+
+{% endblock %}
+
+{% block script %}
+    <script src="/static/js/rivets.bundled.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        function activateSlave(sel) {
+
+            var key = sel.options[sel.selectedIndex].text;
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                accepts: "application/json; charset=utf-8",
+                url: 'http://0.0.0.0:5001/apartment?where={"apartment": "' + key + '"}',
+                success: function (vehicles) {
+                    for (var i = 0; i < vehicles._items.length; i++) {
+                        var b = vehicles._items[i];
+                        $('#section').removeAttr('disabled');
+                        var url1 = '/conveyance?m=r&id=' + b._id;
+                        $('#section').attr('value', '');
+                        $('#section').attr('placeholder', 'Acceptable values are 1 to ' + b.sections);
+                    }
+
+                }
+            });
+
+        }
+    </script>
+
+<script type="text/javascript" charset="utf-8">
+        $(window).load(function() {
+
+            var sel = $('#resident_class');
+            var building = '{{ g.user.buildingid|safe }}';
+
+
+            $.ajax({
+                type: "GET",
+                dataType: 'json',
+                accepts: "application/json; charset=utf-8",
+                url: 'http://127.0.0.1:5001/classroom',
+                success: function (subjects) {
+                                            var d = '';
+                    for (var i = 0; i < subjects._items.length; i++) {
+                        var b = subjects._items[i];
+                        var c = b._id;
+                        if (b.building == building)
+                        {
+                            d += 'option[value!="' + c + '"]';
+                        }
+                    }
+                        sel.find(d).remove();
+                        $('select').material_select();
+
+
+
+                }
+            });
+
+        });
+    </script>
+
+
+{#    <script type="text/javascript">#}
+{#        $(document).ready(function () {#}
+{#            // We define a simple model, with some properties#}
+{#            model = {#}
+{#                name: "Ariel",#}
+{#                lastname: "Ortega",#}
+{#                age: 10,#}
+{#                enabled: false#}
+{#            };#}
+{#            // We indicate the DOM element where the model rivets must bindear#}
+{#            rivets.bind($("#view"), model);#}
+{#        });#}
+{#    </script>#}
+
+
+
+
+{% endblock %}
+
+{% block subrecord %}
+    {% if  mode==2 %}
+
+        <div class="center">
+            <div class="fixed-action-btn click-to-toggle">
+                <a class="btn-floating btn-large blue darken-1">
+                    <i class="large material-icons white-text">add</i>
+                </a>
+                <ul>
+{#                    <li><a class="btn-floating red tooltipped" data-position="right" data-delay="20"#}
+{#                           data-tooltip="Add Parent" href="{{ url_for('.parent', sid=request.args['id']) }}"><i#}
+{#                            class="material-icons">perm_identity</i></a></li>#}
+{#                    <li><a class="btn-floating red tooltipped" data-position="right" data-delay="20"#}
+{#                           data-tooltip="Add Scholarship"#}
+{#                           href="{{ url_for('.scholarship', sid=request.args['id']) }}"><i#}
+{#                            class="material-icons">book</i></a></li>#}
+{#                    <li><a class="btn-floating red tooltipped" data-position="right" data-delay="20"#}
+{#                           data-tooltip="Add Award" href="{{ url_for('.award', sid=request.args['id']) }}"><i#}
+{#                            class="material-icons">grade</i></a></li>#}
+{#                    <li><a class="btn-floating red tooltipped" data-position="right" data-delay="20"#}
+{#                           data-tooltip="Add Transportation"#}
+{#                           href="{{ url_for('.transportation', sid=request.args['id'],m='c') }}"><i#}
+{#                            class="material-icons">directions_bus</i></a></li>#}
+{#                    <li><a class="btn-floating red tooltipped" data-position="right" data-delay="20"#}
+{#                           data-tooltip="Add Hostel"#}
+{#                           href="{{ url_for('.hostelassignment', sid=request.args['id'],m='c') }}"><i#}
+{#                            class="material-icons">hotel</i></a></li>#}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block submenu %}
+    <div class="center submenu-title">
+        Related Records
+    </div>
+    {% if not mode==4 %}
+        <br>
+        {% for t in form['related'].data %}
+            <div class="chip white-text blue submenu-chip">
+                <a href="{{ url_for('.' + form['related'].data[t],m='r', id=t) }}"
+                   class="white-text">{{ form['related'].data[t] }}</a>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+{% block create_mode %}
+    <!-- Modal Structure -->
+{##}
+{#    <div id="view">#}
+{#        <! - The RV- * attributes indicate a direct relationship between the model and the HTML element ->#}
+{#        <div rv-text="name"></div>#}
+{#        <! - Rv-text indicates that the property must set rivets is text ->#}
+{#        <div rv-text="lastname"></div>#}
+{#        <! - In this case rivets placed the value of the age property of the model in the text of this element ->#}
+{#        <div rv-text="age"></div>#}
+{#        <input rv-value="name">#}
+{#        <label>#}
+{#            <input type="checkbox" rv-checked="enabled">#}
+{#        </label>#}
+{##}
+{#        <button rv-show="enabled">Remove</button>#}
+{##}
+{#    </div>#}
+
+
+    <div class="row">
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+                {{ h(type='hidden',value=g.user.buildingid|safe) }}
+
+            {% elif h.label.text =='Resident Section' %}
+                <div class="input-field col s12 m6">
+                    {% if h.description %}
+                        <i class="material-icons prefix">{{ h.description|safe }}</i>
+                    {% endif %}
+
+                    {{ h(disabled='', value=' ') }}
+                    {{ h.label() }}
+
+                </div>
+
+            {% else %}
+                {{ renderer(h, mode) }}
+
+            {% endif %}
+        {% endfor %}
+
+        <div id="dropbox" class="col s12 m12">Drag and drop Resident Image here
+
+        </div>
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+        >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+{% endblock %}
+
+{% block read_mode %}
+
+    <div class="white"
+         style="width: 75px; height: 75px; margin-top: -75px; margin-left: -38px; border-radius: 50%; border: 1px solid #8b0000">
+        <img src='{{ form['image'].data }}' width=75px height=75px style="border-radius: 50%">
+    </div>
+
+    <div class="row">
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+                {{ h(type='hidden',value=g.user.buildingid|safe) }}
+
+            {% elif h.label.text =='Csrf Token' %}
+                {{ h(type='hidden') }}
+
+            {% elif h.label.text =='Image' %}
+                {{ h }}
+
+            {% else %}
+                {{ renderer(h, mode) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+
+{% block update_mode %}
+
+    <div class="white"
+         style="width: 75px; height: 75px; margin-top: -75px; margin-left: -38px; border-radius: 50%; border: 1px solid #8b0000">
+        <img src='{{ form['image'].data }}' width=75px height=75px style="border-radius: 50%">
+    </div>
+
+    <div class="row">
+
+        <input id="id" name="id" type="hidden" value={{ request.args.get('id') }}>
+
+        {% for h in form %}
+            {% if h.label.text =='Building' %}
+                {{ h(type='hidden',value=g.user.buildingid|safe) }}
+
+            {% elif h.label.text =='Csrf Token' %}
+                {{ h(type='hidden') }}
+
+            {% elif h.label.text =='Image' %}
+                {{ h }}
+
+            {% else %}
+
+                {{ renderer(h, mode) }}
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div id="dropbox" class="col s12 m12">Drag and drop Resident Image here
+
+    </div>
+
+    <div class="row center">
+        <button class="btn white black-text btp"
+                type="submit" style="margin-bottom: -55px"
+        >Submit
+            <i class="material-icons right blue-text">send</i>
+        </button>
+
+    </div>
+
+
+{% endblock %}

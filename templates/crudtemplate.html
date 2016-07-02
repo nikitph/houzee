@@ -1,0 +1,101 @@
+{% extends "template.html" %}
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="icon-block center">
+                    <br>
+
+                    {% block uiblock %}
+
+                    {% endblock %}
+
+                </div>
+            </div>
+
+            <div class="col s12 m6">
+                <div class="icon-block btp">
+                    <div class="icon-container">
+
+                        <div class="center">
+                            <div class="center">
+                                <button class="btn-flat white black-text disabled btp" name="action"
+                                        style="margin-top: -22px; border-radius: 8px; border: 1px solid #006400">{{ displayname }}
+                                    Information
+                                </button>
+                            </div>
+                            <br>
+
+                            <form action="/{{ routename }}?{% if key_id %}sid={{ key_id }}&{% endif %}{% if mode == 3 %}id={{ request.args.get('id') }}{% endif %}"
+                                  method="post">
+                                {% if mode==1 %}
+
+                                    {% block create_mode %}
+
+                                    {% endblock %}
+
+                                {% endif %}
+
+                                {% if mode==2 %}
+
+                                    {% block read_mode %}
+
+                                    {% endblock %}
+
+                                {% endif %}
+
+                                {% if mode==3 %}
+
+                                    {% block update_mode %}
+
+                                    {% endblock %}
+
+                                {% endif %}
+
+                                {% if mode==4 %}
+
+                                    {% block delete_mode %}
+
+                                        <div class="center">
+
+                                            <div>
+                                                <div class="completed"><br>
+                                                    <br><br><br><br> {{ displayname }} Successfully Deleted <br>
+                                                    <i class="material-icons large green-text">done</i>
+                                                    <br><br><br><br>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    {% endblock %}
+
+                                {% endif %}
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                {% block subrecord %}
+
+                {% endblock %}
+            </div>
+            <div class="col s12 m3">
+                <div class="icon-block center">
+                    <br>
+                    {% block submenu %}
+
+                    {% endblock %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

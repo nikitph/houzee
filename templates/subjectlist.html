@@ -1,0 +1,70 @@
+{% extends "listtemplate.html" %}
+
+{% block script %}
+    <script src="http://listjs.com/no-cdn/list.js"></script>
+    <script src="/static/js/list.pagination.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            var msg = {{ msg|safe }};
+            var options = {
+                valueNames: Object.getOwnPropertyNames(msg[0]),
+                page: 7,
+                plugins: [ListPagination({})]
+            };
+
+            drawTable(msg);
+            var userList = new List('listelements', options);
+
+            $('#sortlist').change(function () {
+                var selection = this.value;
+
+                // filter items in the list
+                userList.sort(selection);
+            });
+        });
+
+        function drawTable(data) {
+            for (var i = 0; i < data.length; i++) {
+                drawRow(data[i]);
+            }
+        }
+
+        function drawRow(rowData) {
+            var row = $("<tr />");
+            var url1 = '/{{ routename }}?m=r&id=' + rowData._id.$oid;
+            var nam = null;
+            if (rowData.related != null)
+                nam = Object.getOwnPropertyNames(rowData.related);
+
+            $("#listDataTable").append(row); //this will append tr element to table... keep its reference for a while since we will add cels into it
+
+            {% for x in form %}
+                {% if not x.widget.input_type == 'hidden' %}
+                    var b = rowData.{{ x.name }};
+
+                    {% if x.label.text =='Subject Name' %}
+                        row.append($("<td class='{{ x.name }}'><a href=" + url1 + '>' + b + "</a></td>"));
+
+                    {% elif x.label.text =='Related' %}
+
+
+                    {% else %}
+                        row.append($("<td class='{{ x.name }}'>" + b + "</td>"));
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+
+            var z = "";
+            if (nam != null) {
+                for (var ter in nam) {
+                    var url2 = '/' + rowData.related[nam[ter]] + '?m=r&id=' + nam[ter];
+                    z = z + "<div class='chip white-text blue search-chip'> <a href='" + url2 + "' class='white-text'>" + rowData.related[nam[ter]] + "</a></div>";
+                }
+            }
+            row.append($("<td class='related'>" + z + "</td>"));
+
+        }
+
+    </script>
+
+{% endblock %}

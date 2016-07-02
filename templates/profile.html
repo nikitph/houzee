@@ -1,0 +1,113 @@
+{% extends "crudtemplate.html" %}
+
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="icon-block center">
+                    <br>
+                    <br>
+
+                    <div class="chip blue white-text">
+                        Profile Setup
+                    </div>
+                    <div class="line-linkage activelink"></div>
+
+                </div>
+            </div>
+
+
+            <div class="col s12 m6">
+                <div class="icon-block">
+                    <div class="icon-container">
+
+                        <div class="center btp">
+                            <div class="center">
+                                <button class="btn-flat white black-text disabled" name="action"
+                                        style="margin-top: -22px">Profile Information
+                                </button>
+                            </div>
+                            <br>
+
+                            <div class="white"
+                                 style="width: 75px; height: 75px; margin-top: -75px; margin-left: -38px; border-radius: 50%;">
+                                <img src='{{ g.user.image }}' width=75px height=75px style="border-radius: 50%">
+                            </div>
+                            <br>
+
+                            <form action='{{ url_for('.profile') }}' method="post">
+
+
+                                <div class="row">
+
+
+                                    <div class="input-field col s12 m6">
+                                        <label for="name">Name</label>
+                                        <input placeholder="name" id="name" type="text" disabled="" name="name"
+                                               value="{{ g.user.first_name.capitalize() }} {{ g.user.last_name.capitalize() }}">
+                                    </div>
+
+                                    <div class="input-field col s12 m6">
+                                        <label for="email">Email</label>
+                                        <input placeholder="email" id="email" type="text" disabled="" name="email"
+                                               value="{{ g.user.email }}">
+                                    </div>
+
+                                    <div class="input-field col s12 m6">
+                                        <label for="phone">Phone</label>
+                                        <input id="phone"
+                                               placeholder="Enter Phone Number here" name="phone" type="text"
+                                               value="{{ g.user.phone }}">
+                                    </div>
+
+
+                                    <div class="input-field col s12 m6">
+                                    <textarea id="address" class="materialize-textarea center"
+                                              placeholder="Address info"
+                                              name="address" value="{{ g.user.address }}"></textarea>
+                                    </div>
+
+                                    <div class="col s12 m6">
+                                        <input id="image" name="image" type="hidden"
+                                               value="{{ g.user.image }}">
+                                    </div>
+
+
+                                </div>
+
+                                <div id="dropbox" class="col s12 m12">Drag and drop Your Image here
+
+                                </div>
+
+
+                                <div class="row center">
+                                    <button class="btn white black-text btp"
+                                            type="submit" style="margin-bottom: -55px"
+                                            >Submit
+                                        <i class="material-icons right blue-text">send</i>
+                                    </button>
+
+                                </div>
+
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="icon-block">
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

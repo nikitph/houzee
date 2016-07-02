@@ -1,0 +1,111 @@
+{% extends "template.html" %}
+
+{% block script %}
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function () {
+            var vehicles = {{ vehicle|safe }};
+            $('#vehicles').append('<a href=' + '/conveyance?m=c' + ' class="collection-item red-text">' + '<i class="material-icons red-text">add</i>Add Vehicle' + '</a>');
+
+            var drivers = {{ driver|safe }};
+            $('#drivers').append('<a href=' + '/driver?m=c' + ' class="collection-item red-text">' + '<i class="material-icons red-text">add</i>Add Driver' + '</a>');
+
+            var stops = {{ stop|safe }};
+            $('#stops').append('<a href=' + '/busstop?m=c' + ' class="collection-item red-text">' + '<i class="material-icons red-text">add</i>Add Bus Stop' + '</a>');
+
+            var routes = {{ route|safe }};
+
+            $('#routes').append('<a href=' + '/busroute?m=c' + ' class="collection-item red-text">' + '<i class="material-icons red-text">add</i>Add Bus Route' + '</a>');
+
+            for (var i = 0; i < vehicles.length; i++) {
+                var b = vehicles[i];
+                var url1 = '/conveyance?m=r&id=' + b._id.$oid;
+
+                $('#vehicles').append('<a href=' + url1 + ' class="collection-item">' + b.registration_number + '</a>');
+            }
+
+            for (var i = 0; i < drivers.length; i++) {
+                var b = drivers[i];
+                var url1 = '/driver?m=r&id=' + b._id.$oid;
+
+                $('#drivers').append("<a class='collection-item' href=" + url1 + ">" + "<div class='chip white-text'><img src=" + b.image + ">" + b.driver_name + "</div></a>");
+            }
+
+            for (var i = 0; i < stops.length; i++) {
+                var b = stops[i];
+                var url1 = '/busstop?m=r&id=' + b._id.$oid;
+
+                $('#stops').append('<a href=' + url1 + ' class="collection-item">' + b.stop_name + '</a>');
+            }
+
+            for (var i = 0; i < routes.length; i++) {
+                var b = routes[i];
+                var url1 = '/busroute?m=r&id=' + b._id.$oid;
+
+                $('#routes').append('<a href=' + url1 + ' class="collection-item">' + b.route_name + '</a>');
+            }
+        });
+    </script>
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s6 m3 center">
+                <div class="icon-block center">
+
+                    <i class="material-icons large red lighten-3 white-text">directions_bus</i>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Vehicle Information</div>
+                <br>
+                <div id="vehicles" class="collection">
+
+                </div>
+
+            </div>
+
+            <div class="col s6 m3 center">
+                <div class="icon-block center">
+
+                    <i class="material-icons large red lighten-3 white-text">person_pin</i>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Driver Information</div>
+                <br>
+                <div id="drivers" class="collection">
+                </div>
+            </div>
+
+            <div class="col s6 m3 center">
+                <div class="icon-block center">
+
+                    <i class="material-icons large red lighten-3 white-text">place</i>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Bus Stop Details</div>
+                <br>
+                <div id="stops" class="collection">
+                </div>
+            </div>
+
+            <div class="col s6 m3 center">
+                <div class="icon-block center">
+
+                    <i class="material-icons large red lighten-3 white-text">map</i>
+
+                </div>
+                <div class="red-text text-lighten-1 text">Route Information</div>
+                <br>
+                <div id="routes" class="collection">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
