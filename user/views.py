@@ -42,25 +42,22 @@ def setupd():
 
 
 @login_required
-@roles_required('admin')
 @bp_user.route('/township', methods=['GET', 'POST'])
 def township():
     if request.method == 'GET':
-        a = Role.objects.filter(name='resident').first()
-        if a is None:
-            Role(name='resident').save()
         return cruder(request, Township, 'township.html', 'township', 'Township')
 
     else:
         obj_form = model_form(Township)
         form = obj_form(request.form)
         if request.args['s'] == 't':
+            AddRoleCommand().run(user_identifier=str(g.user.email), role_name='manager')
             return redirect(url_for('.building', m='c', s='t', iid=str(form.save().id)))
         return redirect(url_for('.township', m='r', id=str(form.save().id)))
 
 
-@login_required
 @bp_user.route('/building', methods=['GET', 'POST'])
+@roles_required('manager')
 def building():
     if request.method == 'GET':
         # fields to be hidden come here

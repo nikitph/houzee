@@ -10,6 +10,9 @@ class InstallCommand(Command):
         a = Role.objects.filter(name='admin').first()
         if a is None:
             Role(name='admin').save()
+            Role(name='manager').save()
+            Role(name='resident').save()
+            Role(name='staff').save()
             u = prompt('Admin Email?', default='admin@enferno.io')
             p = prompt('Admin Password (min 6 characters)?', default='enferno')
             CreateUserCommand().run(email=u, password=p, active=1)
