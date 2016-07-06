@@ -2,7 +2,7 @@ import datetime
 
 from flask import Blueprint, request, redirect, url_for, g, jsonify
 
-from flask.ext.security import login_required, current_user, roles_required
+from flask.ext.security import login_required, current_user, roles_required, user_registered
 from flask.ext.security.script import CreateUserCommand, AddRoleCommand
 from flask.ext.sse import sse
 from flask.templating import render_template
@@ -21,6 +21,11 @@ bp_user = Blueprint('users', __name__, static_folder='../static')
 @bp_user.before_request
 def before_request():
     g.user = current_user
+
+
+@user_registered.connect
+def on_user_registration(sender, user, **extra):
+    AddRoleCommand().run(user_identifier=str(user.email), role_name='resident')
 
 
 @bp_user.route('/')
@@ -78,6 +83,7 @@ def building():
 
 @login_required
 @bp_user.route('/apartment', methods=['GET', 'POST'])
+@roles_required('manager')
 def apartment():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
@@ -101,7 +107,10 @@ def resident():
                       )
 
     else:
-        return redirect(url_for('.resident', m='r', id=poster(request, Resident)))
+        rid = poster(request, Resident)
+        CreateUserCommand().run(email=str(request.form['email']), password=str(request.form['phone']), active=1)
+        AddRoleCommand().run(user_identifier=str(request.form['email']), role_name='resident')
+        return redirect(url_for('.resident', m='r', id=rid))
 
 
 # @login_required
