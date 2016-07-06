@@ -12,7 +12,7 @@ from flask.ext.mongoengine.wtf import model_form
 from tasks import email
 
 from public.models import *
-from user.models import User, Role, Notification
+from user.models import User, Notification
 from user.utility import cruder, poster
 
 bp_user = Blueprint('users', __name__, static_folder='../static')
