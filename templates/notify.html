@@ -8,9 +8,9 @@
                 for (var x = 0; x < b.length; x++) {
                     c = b[x];
                     if (!c.read) {
-                        var u = '<a href="/bulknotify?m=r&id=' + c.url + '" class="collection-item">' + c.subject + ' </a>';
-                        $('#notifr').append(u);
-                        console.log(u);
+                        var sub = '<li><div class="collapsible-header"><i class="material-icons">filter_drama</i>' + c.subject + '</div>';
+                        var msg = '<div class="collapsible-body"><p>' + c.message + '</p></div></li>';
+                        $('#notifr').append(sub + msg);
                     }
 
                 }
@@ -47,10 +47,12 @@
 
                 <div class="col s12">
                     <ul class="tabs">
-                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Alerts"><a class="active"
+                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Alerts"><a
+                                class="active"
                                 href="#test1"><i class="material-icons red-text">report_problem</i></a></li>
                         <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="News"><a
-                                 href="#test2"><i class="material-icons orange-text text-accent-2">chat_bubble_outline</i></a>
+                                href="#test2"><i
+                                class="material-icons orange-text text-accent-2">chat_bubble_outline</i></a>
                         </li>
                         <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Events"><a
                                 href="#test3"><i class="material-icons blue-text">today</i></a></li>
@@ -59,8 +61,11 @@
                     </ul>
                 </div>
                 <div id="test1" class="col s12"><br>
-                    <ul class="collection" id="notifr">
-                        <li class="collection-item">Alvin</li>
+                    <ul class="collapsible" data-collapsible="accordion" id="notifr">
+                        <li>
+                            <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+                            <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+                        </li>
                     </ul>
                 </div>
                 <div id="test2" class="col s12">Test 2</div>

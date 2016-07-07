@@ -26,6 +26,7 @@ class Role(db.Document, RoleMixin):
 class Notification(db.EmbeddedDocument):
     subject = db.StringField(max_length=1000)
     url = db.StringField(max_length=1500)
+    message = db.StringField(default='placeholder', max_length=1500)
     read = db.BooleanField(default=False)
 
     # def __str__(self):

@@ -324,7 +324,7 @@ def bulknotify():
         bid = poster(request, BulkNotification)
         x = Resident.objects.only('email')
         rcp = []
-        notif = Notification(subject=form['subject'].data, url=bid, read=False)
+        notif = Notification(subject=form['subject'].data, url=bid, read=False, message=form['body'].data)
         User.objects(id=g.user.get_id()).update_one(add_to_set__notif=notif)
         g.user.reload()
 
