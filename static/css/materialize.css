@@ -5263,7 +5263,7 @@ span.badge {
   line-height: inherit;
   color: #757575;
   position: relative;
-  right: 15px;
+  right: 10px;
   box-sizing: border-box;
 }
 span.badge.new {
@@ -9907,6 +9907,7 @@ small {
   letter-spacing: .8px;
   width: 15%;
   min-width: 80px;
+  border-bottom: 1px solid lightgrey;
 }
 .tabs .tab a {
   color: #64B5F6;
@@ -9928,7 +9929,7 @@ small {
   position: absolute;
   bottom: 0;
   height: 2px;
-  background-color: #acd8fa;
+  background-color: #E57373;
   will-change: left, right;
 }
 

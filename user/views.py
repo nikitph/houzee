@@ -1,4 +1,5 @@
 import datetime
+import json
 
 from flask import Blueprint, request, redirect, url_for, g, jsonify
 
@@ -226,6 +227,12 @@ def profile():
     return redirect(url_for('.resident', m='l'))
 
 
+@login_required
+@bp_user.route('/notify', methods=['GET'])
+def notify():
+    return render_template('notify.html')
+
+
 # @login_required
 # @bp_user.route('/event', methods=['GET', 'POST'])
 # def event():
@@ -314,11 +321,10 @@ def bulknotify():
     else:
         obj_form = model_form(BulkNotification)
         form = obj_form(request.form)
-        id = str(form.save().id)
+        bid = poster(request, BulkNotification)
         x = Resident.objects.only('email')
         rcp = []
-        response = {"subject": form['subject'].data, "id": id}
-        notif = Notification(subject=form['subject'].data, url=id, read=False)
+        notif = Notification(subject=form['subject'].data, url=bid, read=False)
         User.objects(id=g.user.get_id()).update_one(add_to_set__notif=notif)
         g.user.reload()
 
@@ -326,7 +332,7 @@ def bulknotify():
             rcp.append(str(s.email))
 
         task = email.apply_async(args=[form['subject'].data, form['body'].data, rcp])
-        return redirect(url_for('.bulknotify', m='r', id=id))
+        return redirect(url_for('.bulknotify', m='r', id=bid))
 
 
 def allowed_file(filename):

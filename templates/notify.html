@@ -1,0 +1,79 @@
+{% extends "crudtemplate.html" %}
+{% block script %}
+    <script>
+
+        $(document).ready(function () {
+            var b = {{ g.user.notif|tojson|safe }};
+            if (b != null) {
+                for (var x = 0; x < b.length; x++) {
+                    c = b[x];
+                    if (!c.read) {
+                        var u = '<a href="/bulknotify?m=r&id=' + c.url + '" class="collection-item">' + c.subject + ' </a>';
+                        $('#notifr').append(u);
+                        console.log(u);
+                    }
+
+                }
+            }
+
+        });
+    </script>
+
+
+{% endblock %}
+
+{% block content %}
+
+    <div class="section">
+
+
+        <!--   Icon Section   -->
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="icon-block center">
+                    <br>
+                    <br>
+
+                    <div class="chip blue white-text">
+                        Profile Setup
+                    </div>
+                    <div class="line-linkage activelink"></div>
+
+                </div>
+            </div>
+
+
+            <div class="col s12 m6">
+
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Alerts"><a class="active"
+                                href="#test1"><i class="material-icons red-text">report_problem</i></a></li>
+                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="News"><a
+                                 href="#test2"><i class="material-icons orange-text text-accent-2">chat_bubble_outline</i></a>
+                        </li>
+                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Events"><a
+                                href="#test3"><i class="material-icons blue-text">today</i></a></li>
+                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50"
+                            data-tooltip="I am tooltip"><a href="#test4">Test 4</a></li>
+                    </ul>
+                </div>
+                <div id="test1" class="col s12"><br>
+                    <ul class="collection" id="notifr">
+                        <li class="collection-item">Alvin</li>
+                    </ul>
+                </div>
+                <div id="test2" class="col s12">Test 2</div>
+                <div id="test3" class="col s12">Test 3</div>
+                <div id="test4" class="col s12">Test 4</div>
+            </div>
+            <div class="col s12 m3">
+                <div class="icon-block">
+                    <br>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

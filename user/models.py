@@ -1,7 +1,18 @@
+from bson import json_util
 from extensions import db
 from flask.ext.security import UserMixin, RoleMixin
 import datetime
+
+from mongoengine import QuerySet
 from public.models import Building
+
+
+class CustomQuerySet(QuerySet):
+    def map_reduce(self, map_f, reduce_f, output, finalize_f=None, limit=None, scope=None):
+        pass
+
+    def to_json(self):
+        return "[%s]" % (",".join([doc.to_json() for doc in self]))
 
 
 class Role(db.Document, RoleMixin):
@@ -17,6 +28,16 @@ class Notification(db.EmbeddedDocument):
     url = db.StringField(max_length=1500)
     read = db.BooleanField(default=False)
 
+    # def __str__(self):
+    #     return self.subject
+    #
+    # __rpr__ = __str__
+
+    meta = {'queryset_class': CustomQuerySet}
+
+    def to_json(self, *args, **kwargs):
+        data = self.to_mongo()
+        return json_util.dumps(data, *args, **kwargs)
 
 
 class User(UserMixin, db.Document):
@@ -68,8 +89,14 @@ class User(UserMixin, db.Document):
     meta = {
         'allow_inheritance': True,
         'indexes': ['-created_at', 'email', 'username'],
-        'ordering': ['-created_at']
+        'ordering': ['-created_at'],
+        'queryset_class': CustomQuerySet
     }
+
+    def to_json(self, *args, **kwargs):
+        data = self.to_mongo()
+        data['notific'] = self.notif.to_json()
+        return json_util.dumps(data, *args, **kwargs)
 
 
 

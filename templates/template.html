@@ -43,72 +43,41 @@
             });
             $('.modal-trigger').leanModal();
 
-            var key = '{{ g.user.get_id() }}';
-            $('#noti').text(0);
-
-
-            $.ajax({
-                type: "GET",
-                dataType: 'json',
-                accepts: "application/json; charset=utf-8",
-                url: 'http://0.0.0.0:5001/user?where={"_id": "' + key + '"}',
-                success: function (vehicles) {
-                    for (var i = 0; i < vehicles._items.length; i++) {
-                        var b = vehicles._items[i].notif;
-                        var y = 0;
-                        if (b != null)
-                        {
-                            for (var x = 0; x < b.length; x++) {
-                                c = b[x];
-                                if (!c.read) {
-                                    $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + c.url + ' class="collection-item">' + c.subject + ' </a>');
-                                    y++;
-                                }
-
-                            }
-                        }
-                        $('#noti').text(y);
-                    }
-
-                }
-            });
-
-
         });
     </script>
 
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
-{#        $(document).ready(function () {
-            namespace = '/test'; // change to an empty string to use the global namespace
-            // the socket.io documentation recommends sending an explicit package upon connection
-            // this is specially important when using the global namespace
-            var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
-            socket.on('connect', function () {
-                socket.emit('join', {room: 1});
-            });
+        {#        $(document).ready(function () {
+                    namespace = '/test'; // change to an empty string to use the global namespace
+                    // the socket.io documentation recommends sending an explicit package upon connection
+                    // this is specially important when using the global namespace
+                    var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
+                    socket.on('connect', function () {
+                        socket.emit('join', {room: 1});
+                    });
 
-            socket.on('my response', function (msg) {
-                Materialize.toast(msg.mtotal + ': ', 1000);
-            });
+                    socket.on('my response', function (msg) {
+                        Materialize.toast(msg.mtotal + ': ', 1000);
+                    });
 
-            socket.on('notification', function (event) {
-                $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + event.id + ' class="collection-item">' + event.subject + ' </a>');
-                var count = parseInt($('#noti').text());
-                if(!isNaN(count))
-                {
-                    $('#noti').text(count + 1);
-                }
-                else
-                         {
-                    $('#noti').text(0);
-                }
+                    socket.on('notification', function (event) {
+                        $('#dropdown3').append('<a href="/bulknotify?m=r&id="' + event.id + ' class="collection-item">' + event.subject + ' </a>');
+                        var count = parseInt($('#noti').text());
+                        if(!isNaN(count))
+                        {
+                            $('#noti').text(count + 1);
+                        }
+                        else
+                                 {
+                            $('#noti').text(0);
+                        }
 
-            });
+                    });
 
 
-        });#}
+                });#}
         function submitFunc(i) {
             namespace = '/test'; // change to an empty string to use the global namespace
             // the socket.io documentation recommends sending an explicit package upon connection
@@ -203,8 +172,8 @@
     <div class="top-logo">
         <div class="logo-container center">
             <a href="/resident?m=l" class="center brand-logo black-text"><img class="anm"
-                                                                             src="/static/img/h4.svg" height="50px"
-                                                                             style="margin-top: 4px"></a></div>
+                                                                              src="/static/img/h4.svg" height="50px"
+                                                                              style="margin-top: 4px"></a></div>
     </div>
     <div class="action-menu">
         <div class="township-name center">
@@ -215,15 +184,8 @@
 
         <div class="notifier center" style="margin: auto">
 
-            <a href="#!"><i class="material-icons dropdown-button hvr-bounce-in" data-activates='dropdown3'
+            <a href={{ url_for('.notify') }}><i class="material-icons dropdown-button hvr-bounce-in" data-activates='dropdown3'
                             data-alignment="right">notifications</i></a>
-            <span class="new badge" id="noti"></span>
-            <ul id='dropdown3' class='dropdown-content-topbar collection'>
-                <li class="collection-item">
-                    <a class="btn-flat blue-text text-darken-3"
-                       onclick="clearNot();"><i class="material-icons right blue-text">clear_all</i>Alerts</a>
-            </ul>
-
         </div>
         <div class="name-menu">
 
@@ -260,29 +222,33 @@
             <ul class="hide-on-med-and-down">
 
 
-                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Resident dashboard "><a
-                        href={{ url_for('.resident',m='l') }}><i class="material-icons blue-text">assignment_ind</i></a>
-                </li>
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Subjects"><a#}
-{#                        href={{ url_for('.subject',m='l') }}><i class="material-icons blue-text">subject</i></a></li>#}
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Teacher Management"><a#}
-{#                        href={{ url_for('.teacher',m='l') }}><i#}
-{#                        class="material-icons blue-text">supervisor_account</i></a></li>#}
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Classroom Management"><a#}
-{#                        href={{ url_for('.classroom',m='l') }}><i#}
-{#                        class="material-icons blue-text">blur_linear</i></a></li>#}
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a#}
-{#                        href={{ url_for('.event',m='l') }}><i#}
-{#                        class="material-icons blue-text">event</i></a></li>#}
-                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Bulk Notifications"><a
-                        href={{ url_for('.bulknotify',m='l') }}><i
-                        class="material-icons blue-text">sms</i></a></li>
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Transportation Dashboard"><a#}
-{#                        href={{ url_for('.transportd') }}><i#}
-{#                        class="material-icons blue-text">directions_bus</i></a></li>#}
-{#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Hostel Manager"><a#}
-{#                        href={{ url_for('.hosteld') }}><i#}
-{#                        class="material-icons blue-text">hotel</i></a></li>#}
+                {% if g.user.is_manager %}
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Resident dashboard "><a
+                            href={{ url_for('.resident',m='l') }}><i class="material-icons blue-text">assignment_ind</i></a>
+                    </li>
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Subjects"><a#}
+                    {#                        href={{ url_for('.subject',m='l') }}><i class="material-icons blue-text">subject</i></a></li>#}
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Teacher Management"><a#}
+                    {#                        href={{ url_for('.teacher',m='l') }}><i#}
+                    {#                        class="material-icons blue-text">supervisor_account</i></a></li>#}
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Classroom Management"><a#}
+                    {#                        href={{ url_for('.classroom',m='l') }}><i#}
+                    {#                        class="material-icons blue-text">blur_linear</i></a></li>#}
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a#}
+                    {#                        href={{ url_for('.event',m='l') }}><i#}
+                    {#                        class="material-icons blue-text">event</i></a></li>#}
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Bulk Notifications"><a
+                            href={{ url_for('.bulknotify',m='l') }}><i
+                            class="material-icons blue-text">sms</i></a></li>
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Transportation Dashboard"><a#}
+                    {#                        href={{ url_for('.transportd') }}><i#}
+                    {#                        class="material-icons blue-text">directions_bus</i></a></li>#}
+                    {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Hostel Manager"><a#}
+                    {#                        href={{ url_for('.hosteld') }}><i#}
+                    {#                        class="material-icons blue-text">hotel</i></a></li>#}
+
+                {% endif %}
+
 
             </ul>
         </nav>
