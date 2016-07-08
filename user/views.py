@@ -233,17 +233,17 @@ def notify():
     return render_template('notify.html')
 
 
-# @login_required
-# @bp_user.route('/event', methods=['GET', 'POST'])
-# def event():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}, 'event_for': {'radio': True}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         print(g.user.buildingid)
-#         return cruder(request, Event, 'event.html', 'event', 'Event', field_args, list_args, g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.event', m='r', id=poster(request, Event)))
+@login_required
+@bp_user.route('/event', methods=['GET', 'POST'])
+def event():
+    if request.method == 'GET':
+        field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
+        list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
+        print(g.user.buildingid)
+        return cruder(request, Event, 'event.html', 'event', 'Event', field_args, list_args, g.user.buildingid)
+
+    else:
+        return redirect(url_for('.event', m='r', id=poster(request, Event)))
 #
 #
 # @login_required

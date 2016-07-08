@@ -205,7 +205,7 @@ class Event(db.Document):
     location = db.StringField(required=True, max_length=50, help_text='location_on')
     # event_for = db.StringField(required=True, verbose_name='Event is for',
     #                            choices=(('1', "Everyone"), ('2', "Students"), ('3', "Faculty"), ('4', "Parents")))
-    # description = db.StringField(required=True, help_text='description')
+    description = db.StringField(required=True, help_text='description')
 
     def __str__(self):
         return self.event_name
