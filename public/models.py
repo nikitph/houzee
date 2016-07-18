@@ -1,6 +1,6 @@
 from bson import json_util
 from mongoengine import EmbeddedDocumentField, ListField, Document, DynamicDocument, ReferenceField, QuerySet
-from wtforms import FieldList, StringField
+from user.models import User
 from extensions import db
 
 
@@ -111,19 +111,16 @@ class Apartment(db.Document):
 #         return json_util.dumps(data, *args, **kwargs)
 
 
-class Resident(db.Document):
+class Resident(User):
     building = db.StringField(required=True, max_length=100, help_text='')
-    resident_name = db.StringField(required=True, max_length=20, help_text='perm_identity')
     apartment = db.ReferenceField(Apartment, required=True, help_text='activateSlave(this);')
-    phone = db.StringField(required=True, max_length=20, help_text='phone')
-    email = db.StringField(required=True, max_length=20, help_text='email')
     date_of_birth = db.StringField(required=True, max_length=20, help_text='cake')
     related = db.DictField(required=False)
     image = db.StringField(required=False, max_length=200,
                            default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
 
     def __str__(self):
-        return self.resident_name
+        return self.first_name + ' ' + self.last_name
 
     __rpr__ = __str__
 
@@ -182,9 +179,6 @@ class Resident(db.Document):
 #         keys = {str(self.id): 'award'}
 #         set_new = dict((("set__related__%s" % k, v) for k, v in keys.iteritems()))
 #         stu.update(**set_new)
-
-
-
 
 
 class Profile(db.Document):

@@ -4,7 +4,6 @@ from flask.ext.security import UserMixin, RoleMixin
 import datetime
 
 from mongoengine import QuerySet
-from public.models import Building
 
 
 class CustomQuerySet(QuerySet):
@@ -43,14 +42,14 @@ class Notification(db.EmbeddedDocument):
 
 class User(UserMixin, db.Document):
     created_at = db.DateTimeField(default=datetime.datetime.now, required=True)
-    email = db.StringField(max_length=255, required=True)
+    email = db.StringField(required=True, max_length=80, help_text='email')
     username = db.StringField(max_length=255, required=False)
     password = db.StringField(required=True)
     active = db.BooleanField(default=False)
-    first_name = db.StringField()
-    last_name = db.StringField()
+    first_name = db.StringField(required=True, max_length=100, help_text='account_box')
+    last_name = db.StringField(required=True, max_length=100, help_text='perm_identity')
     image = db.StringField(required=False, max_length=200, default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
-    phone = db.StringField()
+    phone = db.StringField(required=True, max_length=20, help_text='phone')
     address = db.StringField(max_length=255, required=False, default='')
     building = db.StringField(max_length=255, required=False, default='')
     buildingid = db.StringField(max_length=255, required=False, default='')

@@ -14,7 +14,7 @@ from tasks import email
 
 from public.models import *
 from user.models import User, Notification
-from user.utility import cruder, poster
+from user.utility import cruder, poster, arg_builder
 
 bp_user = Blueprint('users', __name__, static_folder='../static')
 
@@ -104,7 +104,22 @@ def resident():
                       'image': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'street_address': {'widget': wtforms.widgets.HiddenInput()},
                      'image': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, Resident, 'resident.html', 'resident', 'Resident', field_args, list_args
+        rem_list = ['related', 'created_at',
+                    'username',
+                    'password',
+                    'active',
+                    'building',
+                    'buildingid',
+                    'notif',
+                    'roles',
+                    'confirmed_at',
+                    'last_login_at',
+                    'current_login_at',
+                    'last_login_ip',
+                    'current_login_ip',
+                    'login_count']
+        return cruder(request, Resident, 'resident.html', 'resident', 'Resident', field_args, list_args,
+                      remove_list=rem_list
                       )
 
     else:
@@ -244,6 +259,8 @@ def event():
 
     else:
         return redirect(url_for('.event', m='r', id=poster(request, Event)))
+
+
 #
 #
 # @login_required

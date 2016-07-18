@@ -160,7 +160,10 @@
 
     <div class="row">
         {% for h in form %}
-            {% if h.label.text =='Building' %}
+            {% if h is undefined %}
+                <br>
+
+            {% elif h.label.text =='Building' %}
                 {{ h(type='hidden',value=g.user.buildingid|safe) }}
 
             {% elif h.label.text =='Resident Section' %}
