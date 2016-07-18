@@ -4,7 +4,7 @@ import json
 from flask import Blueprint, request, redirect, url_for, g, jsonify
 
 from flask.ext.security import login_required, current_user, roles_required, user_registered
-from flask.ext.security.script import CreateUserCommand, AddRoleCommand
+from flask.ext.security.script import CreateUserCommand, AddRoleCommand, ActivateUserCommand
 from flask.ext.sse import sse
 from flask.templating import render_template
 from werkzeug.utils import secure_filename
@@ -124,7 +124,9 @@ def resident():
 
     else:
         rid = poster(request, Resident)
-        CreateUserCommand().run(email=str(request.form['email']), password=str(request.form['phone']), active=1)
+        User.objects(id=rid).update_one(set__username=str(request.form['email']))
+        User.objects(id=rid).update_one(set__password=str(request.form['phone']))
+        User.objects(id=rid).update_one(set__active=True)
         AddRoleCommand().run(user_identifier=str(request.form['email']), role_name='resident')
         return redirect(url_for('.resident', m='r', id=rid))
 
