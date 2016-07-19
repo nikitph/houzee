@@ -98,6 +98,7 @@ def apartment():
 
 @login_required
 @bp_user.route('/resident', methods=['GET', 'POST'])
+@roles_required('manager')
 def resident():
     if request.method == 'GET':
         field_args = {'related': {'widget': wtforms.widgets.HiddenInput()},

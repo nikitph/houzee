@@ -36,6 +36,7 @@ class Config(object):
     SECURITY_POST_CONFIRM_VIEW = '/resident?m=l'
     SECURITY_POST_REGISTER_VIEW = '/township'
     SECURITY_POST_CHANGE_VIEW = '/profile'
+    SECURITY_UNAUTHORIZED_VIEW = '/profile'
 
     #flask mail settings - Mailgun
     MAIL_SERVER = 'smtp.mailgun.com'
