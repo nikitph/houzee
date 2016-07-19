@@ -15,7 +15,7 @@ class CustomQuerySet(QuerySet):
 
 
 class Role(db.Document, RoleMixin):
-    name = db.StringField(max_length=80,unique=True)
+    name = db.StringField(max_length=80, unique=True)
     description = db.StringField(max_length=255)
 
     def __unicode__(self):
@@ -48,16 +48,17 @@ class User(UserMixin, db.Document):
     active = db.BooleanField(default=True)
     first_name = db.StringField(required=True, max_length=100, help_text='account_box')
     last_name = db.StringField(required=True, max_length=100, help_text='perm_identity')
-    image = db.StringField(required=False, max_length=200, default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
+    image = db.StringField(required=False, max_length=200,
+                           default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
     phone = db.StringField(required=True, max_length=20, help_text='phone')
     address = db.StringField(max_length=255, required=False, default='')
     building = db.StringField(max_length=255, required=False, default='')
     buildingid = db.StringField(max_length=255, required=False, default='')
     notif = db.ListField(db.EmbeddedDocumentField(Notification))
     roles = db.ListField(db.ReferenceField(Role), default=[])
-    #email confirmation
+    # email confirmation
     confirmed_at = db.DateTimeField()
-    #tracking
+    # tracking
     last_login_at = db.DateTimeField()
     current_login_at = db.DateTimeField()
     last_login_ip = db.StringField()
@@ -69,7 +70,6 @@ class User(UserMixin, db.Document):
 
     def __repr__(self):
         return "%s %s %s" % (self.username, self.id, self.email)
-
 
     def get_id(self):
         return unicode(self.id)
@@ -97,8 +97,3 @@ class User(UserMixin, db.Document):
         data = self.to_mongo()
         data['notific'] = self.notif.to_json()
         return json_util.dumps(data, *args, **kwargs)
-
-
-
-
-
