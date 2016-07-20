@@ -248,7 +248,21 @@ def profile():
 @login_required
 @bp_user.route('/notify', methods=['GET'])
 def notify():
-    return render_template('notify.html')
+    return render_template('notify.html', news=News.objects(building=g.user.buildingid))
+
+
+@login_required
+@bp_user.route('/news', methods=['GET', 'POST'])
+@roles_required('manager')
+def news():
+    if request.method == 'GET':
+        field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
+        list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
+        return cruder(request, News, 'news.html', 'news', 'News', field_args, list_args,
+                      g.user.buildingid)
+
+    else:
+        return redirect(url_for('.news', m='r', id=poster(request, News)))
 
 
 @login_required

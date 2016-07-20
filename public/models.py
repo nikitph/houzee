@@ -213,6 +213,11 @@ class BulkNotification(db.Document):
     body = db.StringField(required=True, verbose_name='Notification Message', help_text='subject')
 
 
+class News(db.Document):
+    building = db.StringField(required=True, max_length=50, help_text='')
+    headline = db.StringField(required=True, max_length=200, help_text='mail_outline')
+    details = db.StringField(required=True, help_text='subject')
+
 # class Conveyance(db.Document):
 #     school = db.StringField(required=True, max_length=50)
 #     registration_number = db.StringField(required=True, max_length=50, help_text='confirmation_number')
