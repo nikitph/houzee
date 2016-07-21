@@ -16,6 +16,17 @@
                 }
             }
 
+            var d = {{ news|tojson|safe }};
+            if (d != null) {
+                for (var x = 0; x < d.length; x++) {
+                    var c = d[x];
+                        var sub = '<li><div class="collapsible-header"><i class="material-icons">filter_drama</i>' + c.headline + '</div>';
+                        var msg = '<div class="collapsible-body"><p>' + c.details + '</p></div></li>';
+                        $('#newsc').append(sub + msg);
+
+                }
+            }
+
         });
     </script>
 
@@ -54,8 +65,6 @@
                         </li>
                         <li class="tab col s3 tooltipped" data-position="top" data-delay="50" data-tooltip="Events"><a
                                 href="#test3"><i class="material-icons blue-text">today</i></a></li>
-                        <li class="tab col s3 tooltipped" data-position="top" data-delay="50"
-                            data-tooltip="I am tooltip"><a href="#test4">Test 4</a></li>
                     </ul>
                 </div>
                 <div id="test1" class="col s12"><br>
@@ -66,9 +75,14 @@
                         </li>
                     </ul>
                 </div>
-                <div id="test2" class="col s12">Test 2</div>
+                <div id="test2" class="col s12"><br>
+                <ul class="collapsible" data-collapsible="accordion" id="newsc">
+                        <li>
+
+                        </li>
+                    </ul>
+                </div>
                 <div id="test3" class="col s12">Test 3</div>
-                <div id="test4" class="col s12">Test 4</div>
             </div>
             <div class="col s12 m3">
                 <div class="icon-block">
