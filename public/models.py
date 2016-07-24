@@ -218,128 +218,40 @@ class News(db.Document):
     headline = db.StringField(required=True, max_length=200, help_text='mail_outline')
     details = db.StringField(required=True, help_text='subject')
 
-# class Conveyance(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     registration_number = db.StringField(required=True, max_length=50, help_text='confirmation_number')
-#     total_seats = db.StringField(required=True, max_length=5, help_text='event_seat')
-#     maximum_capacity = db.StringField(required=True, max_length=50, help_text='arrow_upward')
-#     person_for_contact = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     contact_phone = db.StringField(required=True, max_length=50, help_text='phone')
-#     other_details = db.StringField(required=True, help_text='description')
-#
-#     def __str__(self):
-#         return self.registration_number
-#
-#     __rpr__ = __str__
-#
-#
-# class Driver(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     driver_name = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     street_address = db.StringField(required=True, help_text='location_on')
-#     city = db.StringField(required=True, max_length=20, help_text='location_city')
-#     state = db.StringField(required=True, max_length=20, help_text='navigation')
-#     pincode = db.StringField(required=True, max_length=20, help_text='local_parking')
-#     date_of_birth = db.StringField(required=True, max_length=20, help_text='cake')
-#     contact_phone = db.StringField(required=True, max_length=50, help_text='phone')
-#     license_number = db.StringField(required=True, max_length=50, help_text='vpn_key')
-#     other_details = db.StringField(required=True, help_text='description')
-#     image = db.StringField(required=False, max_length=200,
-#                            default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
-#
-#     def __str__(self):
-#         return self.driver_name
-#
-#     __rpr__ = __str__
-#
-#
-# class BusStop(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     stop_name = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     stop_address = db.StringField(required=True, help_text='location_on')
-#     landmark = db.StringField(required=True, max_length=150, help_text='navigation')
-#     pick_up_time = db.StringField(required=True, max_length=50, help_text='hourglass_full')
-#
-#     def __str__(self):
-#         return self.stop_name
-#
-#     __rpr__ = __str__
-#
-#
-# class BusRoute(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     route_name = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     driver = db.ReferenceField(Driver, required=True)
-#     vehicle = db.ReferenceField(Conveyance, required=True)
-#     stops = db.ListField(ReferenceField(BusStop, required=True))
-#
-#     def __str__(self):
-#         return self.route_name
-#
-#     __rpr__ = __str__
-#
-#
-# class Transportation(db.Document):
-#     route = db.ReferenceField(BusRoute, required=True, help_text='activateSlave(this);')
-#     stop = db.ReferenceField(BusStop, required=True)
-#     student_id = db.StringField(required=True, max_length=50, help_text='')
-#
-#     def save(self, *args, **kwargs):
-#         super(Transportation, self).save(*args, **kwargs)
-#         stu = Student.objects(id=self.student_id).first()
-#         keys = {str(self.id): 'transportation'}
-#         set_new = dict((("set__related__%s" % k, v) for k, v in keys.iteritems()))
-#         stu.update(**set_new)
-#
-#
-# class Hostel(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     hostel_name = db.StringField(required=True, max_length=50, help_text='hotel')
-#     street_address = db.StringField(required=True, help_text='location_on')
-#     city = db.StringField(required=True, max_length=20, help_text='location_city')
-#     state = db.StringField(required=True, max_length=20, help_text='navigation')
-#     pincode = db.StringField(required=True, max_length=20, help_text='local_parking')
-#     phone = db.StringField(required=True, max_length=50, help_text='phone', verbose_name='Hostel Phone')
-#     warden_name = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     warden_phone = db.StringField(required=True, max_length=50, help_text='phone', verbose_name='Warden Phone')
-#
-#     def __str__(self):
-#         return self.hostel_name
-#
-#     __rpr__ = __str__
-#
-#
-# class HostelRoom(db.Document):
-#     school = db.StringField(required=True, max_length=50)
-#     hostel = db.ReferenceField(Hostel, required=True)
-#     room_id = db.StringField(required=True, max_length=50, help_text='perm_identity')
-#     floor = db.StringField(required=True, max_length=50, help_text='view_agenda')
-#     total_beds = db.StringField(required=True, max_length=50, help_text='hotel')
-#
-#     def __str__(self):
-#         return self.room_id
-#
-#     __rpr__ = __str__
-#
-#     meta = {'queryset_class': CustomQuerySet}
-#
-#     def to_json(self, *args, **kwargs):
-#         data = self.to_mongo()
-#         data["hostel"] = self.hostel.hostel_name
-#         return json_util.dumps(data, *args, **kwargs)
-#
-#
-# class HostelAssignment(db.Document):
-#     hostel = db.ReferenceField(Hostel, required=True, help_text='activateSlave(this);')
-#     room = db.ReferenceField(HostelRoom, required=True)
-#     student_id = db.StringField(required=True, max_length=50, help_text='')
-#
-#     def save(self, *args, **kwargs):
-#         super(HostelAssignment, self).save(*args, **kwargs)
-#         stu = Student.objects(id=self.student_id).first()
-#         keys = {str(self.id): 'hostel'}
-#         set_new = dict((("set__related__%s" % k, v) for k, v in keys.iteritems()))
-#         stu.update(**set_new)
+
+class Item(db.Document):
+    building = db.StringField(required=True, max_length=50, help_text='')
+    user = db.ReferenceField(User, required=True, help_text='')
+    item_summary = db.StringField(required=True, max_length=120, help_text='')
+    price = db.StringField(required=True, max_length=50, help_text='')
+    details = db.StringField(required=True, help_text='subject')
+    image = db.StringField(required=False, max_length=200,
+                           default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
+    sold = db.BooleanField(required=True, default=False)
+    negotiable = db.BooleanField(required=True, default=False)
+
+    meta = {'queryset_class': CustomQuerySet}
+
+    def to_json(self, *args, **kwargs):
+        data = self.to_mongo()
+        data["user"] = self.user.first_name + ' ' + self.user.last_name
+        return json_util.dumps(data, *args, **kwargs)
 
 
+class Service(db.Document):
+    building = db.StringField(required=True, max_length=50, help_text='')
+    user = db.ReferenceField(User, required=True, help_text='')
+    service_summary = db.StringField(required=True, max_length=120, help_text='')
+    details = db.StringField(required=True, help_text='subject')
+    image = db.StringField(required=False, max_length=200,
+                           default='static/img/256px-Weiser_State_Forest_Walking_Path.jpg')
+    discontinue = db.BooleanField(required=True, default=False)
+    price = db.StringField(required=True, max_length=50, help_text='')
+    negotiable = db.BooleanField(required=True, default=False)
 
+    meta = {'queryset_class': CustomQuerySet}
+
+    def to_json(self, *args, **kwargs):
+        data = self.to_mongo()
+        data["user"] = self.user.first_name + ' ' + self.user.last_name
+        return json_util.dumps(data, *args, **kwargs)

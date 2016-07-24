@@ -266,6 +266,24 @@ def news():
 
 
 @login_required
+@bp_user.route('/item', methods=['GET', 'POST'])
+@roles_required('manager')
+def item():
+    if request.method == 'GET':
+        field_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
+                      'image': {'widget': wtforms.widgets.HiddenInput()},
+                      'user': {'widget': wtforms.widgets.HiddenInput()}}
+
+        list_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
+                     'image': {'widget': wtforms.widgets.HiddenInput()}}
+        return cruder(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
+                      g.user.buildingid)
+
+    else:
+        return redirect(url_for('.item', m='r', id=poster(request, Item)))
+
+
+@login_required
 @bp_user.route('/event', methods=['GET', 'POST'])
 def event():
     if request.method == 'GET':
@@ -276,71 +294,6 @@ def event():
 
     else:
         return redirect(url_for('.event', m='r', id=poster(request, Event)))
-
-
-#
-#
-# @login_required
-# @bp_user.route('/conveyance', methods=['GET', 'POST'])
-# def conveyance():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, Conveyance, 'conveyance.html', 'conveyance', 'Conveyance', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.conveyance', m='r', id=poster(request, Conveyance)))
-#
-#
-# @login_required
-# @bp_user.route('/driver', methods=['GET', 'POST'])
-# def driver():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
-#                       'image': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
-#                      'image': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, Driver, 'driver.html', 'driver', 'Driver', field_args, list_args, g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.driver', m='r', id=poster(request, Driver)))
-#
-#
-# @login_required
-# @bp_user.route('/busstop', methods=['GET', 'POST'])
-# def busstop():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, BusStop, 'busstop.html', 'busstop', 'Bus Stop', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.busstop', m='r', id=poster(request, BusStop)))
-#
-#
-# @login_required
-# @bp_user.route('/busroute', methods=['GET', 'POST'])
-# def busroute():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, BusRoute, 'busroute.html', 'busroute', 'Bus Route', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.busroute', m='r', id=poster(request, BusRoute)))
-#
-#
-# @login_required
-# @bp_user.route('/transportd', methods=['GET'])
-# def transportd():
-#     vehicle = Conveyance.objects(building=str(g.user.buildingid)).to_json()
-#     driver = Driver.objects(building=str(g.user.buildingid)).to_json()
-#     stop = BusStop.objects(building=str(g.user.buildingid)).to_json()
-#     route = BusRoute.objects(building=str(g.user.buildingid)).to_json()
-#     return render_template('transportd.html', vehicle=vehicle, driver=driver, stop=stop, route=route)
 
 
 @login_required
@@ -373,53 +326,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ['jpg', 'jpeg']
 
 
-# @login_required
-# @bp_user.route('/hosteld', methods=['GET'])
-# def hosteld():
-#     hostels = Hostel.objects(building=str(g.user.buildingid)).to_json()
-#     room = HostelRoom.objects(building=str(g.user.buildingid)).to_json()
-#     return render_template('hosteld.html', hostel=hostels, room=room)
-#
-#
-# @login_required
-# @bp_user.route('/hostel', methods=['GET', 'POST'])
-# def hostel():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, Hostel, 'hostel.html', 'hostel', 'Hostel', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.hostel', m='r', id=poster(request, Hostel)))
-#
-#
-# @login_required
-# @bp_user.route('/hostelroom', methods=['GET', 'POST'])
-# def hostelroom():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, HostelRoom, 'hostelroom.html', 'hostelroom', 'Hostel Room', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.hostelroom', m='r', id=poster(request, HostelRoom)))
-#
-#
-# @login_required
-# @bp_user.route('/classroom', methods=['GET', 'POST'])
-# def classroom():
-#     if request.method == 'GET':
-#         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-#         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
-#                      'subjects': {'widget': wtforms.widgets.HiddenInput()}}
-#         return cruder(request, ClassRoom, 'classroom.html', 'classroom', 'Class Room', field_args, list_args,
-#                       g.user.buildingid)
-#
-#     else:
-#         return redirect(url_for('.classroom', m='r', id=poster(request, ClassRoom)))
-#
+
 
 @bp_user.route('/status/<task_id>')
 def taskstatus(task_id):
