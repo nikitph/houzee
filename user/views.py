@@ -284,6 +284,27 @@ def item():
 
 
 @login_required
+@bp_user.route('/buy', methods=['GET'])
+@roles_required('manager')
+def buy():
+    if request.method == 'GET':
+        field_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
+                      'image': {'widget': wtforms.widgets.HiddenInput()},
+                      'user': {'widget': wtforms.widgets.HiddenInput()}}
+
+        list_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
+                     'image': {'widget': wtforms.widgets.HiddenInput()},
+                     'user': {'widget': wtforms.widgets.HiddenInput()},
+                     'sold': {'widget': wtforms.widgets.HiddenInput()}}
+        return cruder(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
+                      g.user.buildingid)
+
+    else:
+        return redirect(url_for('.item', m='r', id=poster(request, Item)))
+
+
+
+@login_required
 @bp_user.route('/event', methods=['GET', 'POST'])
 def event():
     if request.method == 'GET':

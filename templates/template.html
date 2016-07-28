@@ -184,8 +184,9 @@
 
         <div class="notifier center" style="margin: auto">
 
-            <a href={{ url_for('.notify') }}><i class="material-icons dropdown-button hvr-bounce-in" data-activates='dropdown3'
-                            data-alignment="right">notifications</i></a>
+            <a href={{ url_for('.notify') }}><i class="material-icons dropdown-button hvr-bounce-in"
+                                                data-activates='dropdown3'
+                                                data-alignment="right">notifications</i></a>
         </div>
         <div class="name-menu">
 
@@ -234,9 +235,9 @@
                     {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Classroom Management"><a#}
                     {#                        href={{ url_for('.classroom',m='l') }}><i#}
                     {#                        class="material-icons blue-text">blur_linear</i></a></li>#}
-                                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a
-                                            href={{ url_for('.event',m='l') }}><i
-                                            class="material-icons blue-text">event</i></a></li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">event</i></a></li>
                     <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Bulk Notifications"><a
                             href={{ url_for('.bulknotify',m='l') }}><i
                             class="material-icons blue-text">sms</i></a></li>
@@ -246,6 +247,25 @@
                     {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Hostel Manager"><a#}
                     {#                        href={{ url_for('.hosteld') }}><i#}
                     {#                        class="material-icons blue-text">hotel</i></a></li>#}
+
+
+                {% elif g.user.is_resident %}
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Buy Something"><a
+                            href={{ url_for('.buy',m='l') }}><i class="material-icons blue-text">assignment_ind</i></a>
+                    </li>
+
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Sell Something "><a
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">event</i></a></li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Provide Service"><a
+                            href={{ url_for('.bulknotify',m='l') }}><i
+                            class="material-icons blue-text">sms</i></a></li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Get Service"><a
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">event</i></a></li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Request Maintenance"><a
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">event</i></a></li>
 
                 {% endif %}
 

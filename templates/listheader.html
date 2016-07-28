@@ -14,9 +14,11 @@
 {#        </select>#}
     </div>
     <div class="col s6 m2">
+        {% if not request.path == '/buy' %}
         <button class="btn-flat blue white-text listheaderbtn">
             <a class="white-text" href={{ url_for('.' + routename ,m='c') }}>
                 Create New</a>
         </button>
+        {% endif %}
     </div>
 </div>
