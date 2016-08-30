@@ -24,8 +24,10 @@
         });
 
         function drawTable(data) {
+            var usr = '{{ g.user.first_name }}' + ' ' + '{{ g.user.last_name }}';
             for (var i = 0; i < data.length; i++) {
-                drawRow(data[i]);
+                if (data[i].user.toLowerCase() != usr)
+                    drawRow(data[i]);
             }
         }
 
