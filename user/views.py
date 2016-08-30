@@ -14,7 +14,7 @@ from tasks import email
 
 from public.models import *
 from user.models import User, Notification
-from user.utility import cruder, poster, arg_builder
+from user.utility import cruder, poster, arg_builder, CrudParams
 
 bp_user = Blueprint('users', __name__, static_folder='../static')
 
@@ -51,7 +51,7 @@ def setupd():
 @bp_user.route('/township', methods=['GET', 'POST'])
 def township():
     if request.method == 'GET':
-        return cruder(request, Township, 'township.html', 'township', 'Township')
+        return cruder(CrudParams(request, Township, 'township.html', 'township', 'Township'))
 
     else:
         obj_form = model_form(Township)
@@ -68,7 +68,7 @@ def building():
     if request.method == 'GET':
         # fields to be hidden come here
         field_args = {'user': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, Building, 'building.html', 'building', 'Building', field_args)
+        return cruder(CrudParams(request, Building, 'building.html', 'building', 'Building', field_args))
 
     else:
         obj_form = model_form(Building)
@@ -89,8 +89,8 @@ def apartment():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, Apartment, 'apartment.html', 'apartment', 'Apartment', field_args, list_args,
-                      g.user.buildingid)
+        return cruder(CrudParams(request, Apartment, 'apartment.html', 'apartment', 'Apartment', field_args, list_args,
+                                 g.user.buildingid))
 
     else:
         return redirect(url_for('.apartment', m='r', id=poster(request, Apartment)))
@@ -119,9 +119,9 @@ def resident():
                     'last_login_ip',
                     'current_login_ip',
                     'login_count']
-        return cruder(request, Resident, 'resident.html', 'resident', 'Resident', field_args, list_args,
-                      remove_list=rem_list
-                      )
+        return cruder(CrudParams(request, Resident, 'resident.html', 'resident', 'Resident', field_args, list_args,
+                                 remove_list=rem_list
+                                 ))
 
     else:
         rid = poster(request, Resident)
@@ -258,8 +258,8 @@ def news():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, News, 'news.html', 'news', 'News', field_args, list_args,
-                      g.user.buildingid)
+        return cruder(CrudParams(request, News, 'news.html', 'news', 'News', field_args, list_args,
+                                 g.user.buildingid))
 
     else:
         return redirect(url_for('.news', m='r', id=poster(request, News)))
@@ -267,7 +267,7 @@ def news():
 
 @login_required
 @bp_user.route('/item', methods=['GET', 'POST'])
-@roles_required('manager')
+@roles_required('resident')
 def item():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
@@ -275,9 +275,10 @@ def item():
                       'user': {'widget': wtforms.widgets.HiddenInput()}}
 
         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
-                     'image': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
-                      g.user.buildingid)
+                     'image': {'widget': wtforms.widgets.HiddenInput()},
+                     'user': {'widget': wtforms.widgets.HiddenInput()}}
+        return cruder(CrudParams(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
+                                 g.user.buildingid))
 
     else:
         return redirect(url_for('.item', m='r', id=poster(request, Item)))
@@ -285,7 +286,7 @@ def item():
 
 @login_required
 @bp_user.route('/buy', methods=['GET'])
-@roles_required('manager')
+@roles_required('resident')
 def buy():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()},
@@ -296,8 +297,8 @@ def buy():
                      'image': {'widget': wtforms.widgets.HiddenInput()},
                      'user': {'widget': wtforms.widgets.HiddenInput()},
                      'sold': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
-                      g.user.buildingid)
+        return cruder(CrudParams(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
+                                 g.user.buildingid))
 
     else:
         return redirect(url_for('.item', m='r', id=poster(request, Item)))
@@ -311,7 +312,8 @@ def event():
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
         print(g.user.buildingid)
-        return cruder(request, Event, 'event.html', 'event', 'Event', field_args, list_args, g.user.buildingid)
+        return cruder(
+            CrudParams(request, Event, 'event.html', 'event', 'Event', field_args, list_args, g.user.buildingid))
 
     else:
         return redirect(url_for('.event', m='r', id=poster(request, Event)))
@@ -323,8 +325,9 @@ def bulknotify():
     if request.method == 'GET':
         field_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'building': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(request, BulkNotification, 'bulknotify.html', 'bulknotify', 'Bulk Notification', field_args,
-                      list_args, g.user.buildingid)
+        return cruder(
+            CrudParams(request, BulkNotification, 'bulknotify.html', 'bulknotify', 'Bulk Notification', field_args,
+                       list_args, g.user.buildingid))
 
     else:
         obj_form = model_form(BulkNotification)
