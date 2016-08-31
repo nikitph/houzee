@@ -42,6 +42,8 @@
                 }
             });
             $('.modal-trigger').leanModal();
+            $(".button-collapse").sideNav();
+
 
         });
     </script>
@@ -182,13 +184,51 @@
 
         </div>
 
-        <div class="notifier center" style="margin: auto">
+        <div class="notifier center hide-on-med-and-down" style="margin: auto">
 
             <a href={{ url_for('.notify') }}><i class="material-icons dropdown-button hvr-bounce-in"
                                                 data-activates='dropdown3'
                                                 data-alignment="right">notifications</i></a>
         </div>
-        <div class="name-menu">
+        <div class="notifier center hide-on-large-only" style="margin: auto">
+
+            <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="side-nav" id="mobile-menu">
+                <li style="padding-left: 0;padding-right: 0;">
+                    <div class="userView">
+                        <img class="background" src="/static/img/hbg.jpg">
+                        <a><img class="circle" src="/static/img/background1.jpg"></a>
+                        <a href="/profile"><span class="black-text name"
+                                                 style="font-weight: 400;background-color: rgba(255, 221, 82,0.3)">John Doe</span></a>
+                    </div>
+                </li>
+                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Buy Something"><a
+                        class="blue-text"
+                        href={{ url_for('.buy',m='l') }}><i class="material-icons blue-text">shopping_cart</i>Buy
+                    Something</a>
+                </li>
+
+                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Sell Something "><a
+                        class="blue-text"
+                        href={{ url_for('.event',m='l') }}><i
+                        class="material-icons blue-text">monetization_on</i>Sell Something</a></li>
+                {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Provide Service"><a#}
+                {#                            href={{ url_for('.bulknotify',m='l') }}><i#}
+                {#                            class="material-icons blue-text">sms</i></a></li>#}
+                {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Get Service"><a#}
+                {#                            href={{ url_for('.event',m='l') }}><i#}
+                {#                            class="material-icons blue-text">event</i></a></li>#}
+                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Request Maintenance"><a
+                        class="blue-text"
+                        href={{ url_for('.event',m='l') }}><i
+                        class="material-icons blue-text">report_problem</i>Request Maintenance</a></li>
+                <li>
+                    <div class="divider"></div>
+                </li>
+                <li><a href="/logout" style="border: 1px solid dodgerblue;border-radius: 10px;">Logout</a></li>
+            </ul>
+        </div>
+        <div class="name-menu hide-on-med-and-down">
 
 
             <div class="hvr-bounce-in">
