@@ -78,10 +78,10 @@ class User(UserMixin, db.Document):
         return unicode(self.building)
 
     def is_manager(self):
-        return "manager" in self.roles
+        return self.has_role('manager')
 
     def is_resident(self):
-        return "resident" in self.roles
+        return self.has_role('resident')
 
     def is_staff(self):
         return "staff" in self.roles
