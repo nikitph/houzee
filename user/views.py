@@ -248,7 +248,9 @@ def profile():
 @login_required
 @bp_user.route('/notify', methods=['GET'])
 def notify():
-    return render_template('notify.html', news=News.objects(building=g.user.buildingid))
+    return render_template('notify.html', news=News.objects(building=str(g.user.buildingid)),
+                           events=Event.objects(building=str(g.user.buildingid)),
+                           alerts=BulkNotification.objects(building=str(g.user.buildingid)))
 
 
 @login_required
@@ -304,7 +306,6 @@ def buy():
         return redirect(url_for('.item', m='r', id=poster(request, Item)))
 
 
-
 @login_required
 @bp_user.route('/event', methods=['GET', 'POST'])
 def event():
@@ -348,8 +349,6 @@ def bulknotify():
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in ['jpg', 'jpeg']
-
-
 
 
 @bp_user.route('/status/<task_id>')
