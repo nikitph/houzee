@@ -104,12 +104,12 @@ def resident():
         field_args = {'related': {'widget': wtforms.widgets.HiddenInput()},
                       'image': {'widget': wtforms.widgets.HiddenInput()}}
         list_args = {'street_address': {'widget': wtforms.widgets.HiddenInput()},
-                     'image': {'widget': wtforms.widgets.HiddenInput()}}
+                     'image': {'widget': wtforms.widgets.HiddenInput()},
+                     'building': {'widget': wtforms.widgets.HiddenInput()}}
         rem_list = ['related', 'created_at',
                     'username',
                     'password',
                     'active',
-                    'building',
                     'buildingid',
                     'notif',
                     'roles',
