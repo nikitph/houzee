@@ -237,26 +237,26 @@
 
 
                 {% elif g.user.is_resident() %}
-                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Buy Something"><a
-                        class="blue-text"
-                        href={{ url_for('.buy',m='l') }}><i class="material-icons blue-text">shopping_cart</i>Buy
-                    Something</a>
-                </li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Buy Something"><a
+                            class="blue-text"
+                            href={{ url_for('.buy',m='l') }}><i class="material-icons blue-text">shopping_cart</i>Buy
+                        Something</a>
+                    </li>
 
-                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Sell Something "><a
-                        class="blue-text"
-                        href={{ url_for('.event',m='l') }}><i
-                        class="material-icons blue-text">monetization_on</i>Sell Something</a></li>
-                {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Provide Service"><a#}
-                {#                            href={{ url_for('.bulknotify',m='l') }}><i#}
-                {#                            class="material-icons blue-text">sms</i></a></li>#}
-                {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Get Service"><a#}
-                {#                            href={{ url_for('.event',m='l') }}><i#}
-                {#                            class="material-icons blue-text">event</i></a></li>#}
-                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Request Maintenance"><a
-                        class="blue-text"
-                        href={{ url_for('.event',m='l') }}><i
-                        class="material-icons blue-text">report_problem</i>Request Maintenance</a></li>
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Sell Something "><a
+                            class="blue-text"
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">monetization_on</i>Sell Something</a></li>
+                    {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Provide Service"><a#}
+                    {#                            href={{ url_for('.bulknotify',m='l') }}><i#}
+                    {#                            class="material-icons blue-text">sms</i></a></li>#}
+                    {#                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Get Service"><a#}
+                    {#                            href={{ url_for('.event',m='l') }}><i#}
+                    {#                            class="material-icons blue-text">event</i></a></li>#}
+                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Request Maintenance"><a
+                            class="blue-text"
+                            href={{ url_for('.event',m='l') }}><i
+                            class="material-icons blue-text">report_problem</i>Request Maintenance</a></li>
                 {% endif %}
                 <li>
                     <div class="divider"></div>
