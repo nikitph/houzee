@@ -197,9 +197,12 @@
                 <li style="padding-left: 0;padding-right: 0;">
                     <div class="userView">
                         <img class="background" src="/static/img/hbg.jpg">
-                        <a><img class="circle" src="/static/img/background1.jpg"></a>
+                        <a><img class="circle" src='{{ g.user.image }}'></a>
                         <a href="/profile"><span class="black-text name"
-                                                 style="font-weight: 400;background-color: rgba(255, 221, 82,0.3)">John Doe</span></a>
+                                                 style="font-weight: 400;background-color: rgba(255, 221, 82,0.3)">{% if g.user.first_name %}
+                            {{ g.user.first_name.capitalize() }} {% endif %}
+                            {% if g.user.last_name %}
+                                {{ g.user.last_name.capitalize() }} {% endif %}</span></a>
                     </div>
                 </li>
                 <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Buy Something"><a
