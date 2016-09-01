@@ -207,7 +207,8 @@
 
                 </li>
                 {% if g.user.is_manager() %}
-                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Resident dashboard "><a
+                    <li class="tooltipped left-align" data-position="right" data-delay="50"
+                        data-tooltip="Resident dashboard"><a
                             class="blue-text"
                             href={{ url_for('.resident',m='l') }}><i class="material-icons blue-text">assignment_ind</i>Resident
                         Dashboard</a>
@@ -220,15 +221,18 @@
                     {#                <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Classroom Management"><a#}
                     {#                        href={{ url_for('.classroom',m='l') }}><i#}
                     {#                        class="material-icons blue-text">blur_linear</i></a></li>#}
-                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Event dashboard "><a
+                    <li class="tooltipped left-align" data-position="right" data-delay="50"
+                        data-tooltip="Event dashboard "><a
                             class="blue-text"
                             href={{ url_for('.event',m='l') }}><i
                             class="material-icons blue-text">event</i>Event Dashboard</a></li>
-                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Bulk Notifications"><a
+                    <li class="tooltipped left-align" data-position="right" data-delay="50"
+                        data-tooltip="Bulk Notifications"><a
                             class="blue-text"
                             href={{ url_for('.bulknotify',m='l') }}><i
                             class="material-icons blue-text">sms</i>Bulk Notifications</a></li>
-                    <li class="tooltipped" data-position="right" data-delay="50" data-tooltip="Broadcast News"><a
+                    <li class="tooltipped left-align" data-position="right" data-delay="50"
+                        data-tooltip="Broadcast News"><a
                             class="blue-text"
                             href={{ url_for('.news',m='l') }}><i
                             class="material-icons blue-text">rss_feed</i>Broadcast News</a></li>
