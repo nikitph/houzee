@@ -1,3 +1,5 @@
+import datetime
+
 from bson import json_util
 from mongoengine import EmbeddedDocumentField, ListField, Document, DynamicDocument, ReferenceField, QuerySet
 from user.models import User
@@ -217,6 +219,19 @@ class News(db.Document):
     building = db.StringField(required=True, max_length=50, help_text='')
     headline = db.StringField(required=True, max_length=200, help_text='mail_outline')
     details = db.StringField(required=True, help_text='subject')
+    # creation_date = db.DateTimeField(default=datetime.datetime.now)
+    #
+    # def __str__(self):
+    #     return self.headline
+    #
+    # __rpr__ = __str__
+    #
+    # meta = {'queryset_class': CustomQuerySet}
+    #
+    # def to_json(self, *args, **kwargs):
+    #     data = self.to_mongo()
+    #     data["creation_date"] = self.creation_date.isodate()
+    #     return json_util.dumps(data, *args, **kwargs)
 
 
 class Item(db.Document):

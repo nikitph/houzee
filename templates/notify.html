@@ -4,6 +4,11 @@
 
         $(document).ready(function () {
             var b = {{ g.user.notif|tojson|safe }};
+            b.sort(function (a, b) {
+                if (a._id.$oid < b._id.$oid) return 1;
+                if (a._id.$oid > b._id.$oid) return -1;
+                return 0;
+            });
             if (b != null) {
                 for (var x = 0; x < b.length; x++) {
                     c = b[x];
@@ -17,6 +22,11 @@
             }
 
             var d = {{ news|tojson|safe }};
+            d.sort(function (a, b) {
+                if (a._id.$oid < b._id.$oid) return 1;
+                if (a._id.$oid > b._id.$oid) return -1;
+                return 0;
+            });
             if (d != null) {
                 for (var x = 0; x < d.length; x++) {
                     var c = d[x];

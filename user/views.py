@@ -248,7 +248,7 @@ def profile():
 @login_required
 @bp_user.route('/notify', methods=['GET'])
 def notify():
-    return render_template('notify.html', news=News.objects(building=str(g.user.buildingid)),
+    return render_template('notify.html', news=News.objects(building=str(g.user.buildingid)).order_by('-_id'),
                            events=Event.objects(building=str(g.user.buildingid)),
                            alerts=BulkNotification.objects(building=str(g.user.buildingid)))
 
