@@ -45,7 +45,7 @@
                     {% if not x.widget.input_type == 'hidden' %}
                         var b = rowData.{{ x.name }};
 
-                        {% if x.label.text =='Resident Name' %}
+                        {% if x.label.text =='First Name' %}
                             row.append($("<td class='{{ x.name }}'><div class='chip'><img src=" + img + "><a href=" + url1 + '>' + b + "</a></div></td>"));
 
                         {% elif x.label.text =='Related' %}
