@@ -8,61 +8,17 @@
 
 {% endblock %}
 
+{% block uiblockmob %}
+
+    {% include 'uiblockmob.html' %}
+
+{% endblock %}
+
 {% block uiblock %}
+    <br>
 
-{% if mode==1 %}
+    {% include 'uiblock.html' %}
 
-    <div class="chip white-text">
-        Create {{ displayname }}
-    </div>
-    <div class="line-linkage activelink"></div>
-
-
-{% endif %}
-
-{% if mode==2 %}
-
-    <div class="chip white-text">
-        View {{ displayname }}
-    </div>
-    <div class="line-linkage activelink"></div>
-
-
-
-{% endif %}
-
-{% if mode==3 %}
-
-    <div class="chip green lighten-3">
-        <a href="{{ url_for('.' + routename,m='r', id=request.args.get('id')) }}">View {{ displayname }}</a>
-    </div>
-    <div class="line-linkage"></div>
-
-    <div class="vertical-line"></div>
-    <div class="chip green lighten-3">
-        Update {{ displayname }}
-    </div>
-
-    <div class="line-linkage activelink"></div>
-
-
-    <div class="vertical-line"></div>
-    <div class="chip red lighten-2">
-        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}"> Delete
-            {{ displayname }} </a>
-    </div>
-    <div class="line-linkage"></div>
-
-{% endif %}
-
-{% if mode==4 %}
-
-    <div class="chip amber lighten-3">
-        Delete {{ displayname }}
-    </div>
-    <div class="line-linkage activelink"></div>
-
-{% endif %}
 {% endblock %}
 
 
