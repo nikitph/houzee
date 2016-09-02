@@ -3,7 +3,7 @@
     <script>
 
         $(document).ready(function () {
-            var b = {{ g.user.notif|tojson|safe }};
+            var b = {{ alerts|tojson|safe }};
             b.sort(function (a, b) {
                 if (a._id.$oid < b._id.$oid) return 1;
                 if (a._id.$oid > b._id.$oid) return -1;
@@ -14,7 +14,7 @@
                     c = b[x];
                     if (!c.read) {
                         var sub = '<li><div class="collapsible-header"><span class="red-text text-darken-5">' + c.subject + '</span></div>';
-                        var msg = '<div class="collapsible-body blue-text"><p>' + c.message + '</p></div></li>';
+                        var msg = '<div class="collapsible-body blue-text"><p>' + c.body + '</p></div></li>';
                         $('#notifr').append(sub + msg);
                     }
 
