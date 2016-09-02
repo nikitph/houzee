@@ -1,0 +1,57 @@
+{% if mode==1 %}
+
+    <div class="chip blue white-text">
+        Create {{ displayname }}
+    </div>
+    <div class="vertical-line-mobc"></div>
+
+
+{% endif %}
+
+{% if mode==2 %}
+
+    <div class="chip blue white-text">
+        View
+    </div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='u', id=request.args.get('id')) }}">Update</a>
+    </div>
+
+    <div class="chip red lighten-2">
+        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}">Delete
+        </a>
+    </div>
+
+    <div class="vertical-line-mobr"></div>
+
+
+{% endif %}
+
+{% if mode==3 %}
+
+    <div class="chip blue white-text">
+        View
+    </div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='u', id=request.args.get('id')) }}">Update</a>
+    </div>
+
+    <div class="chip red lighten-2">
+        <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}">Delete
+        </a>
+    </div>
+
+    <div class="vertical-line-mobu"></div>
+
+{% endif %}
+
+{% if mode==4 %}
+
+    <div class="chip red lighten-2">
+        Delete {{ displayname }}
+    </div>
+    <div class="vertical-line-mobd"></div>
+
+{% endif %}

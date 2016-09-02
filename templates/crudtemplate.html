@@ -7,8 +7,8 @@
 
         <!--   Icon Section   -->
         <div class="row">
-            <div class="col s12 m3">
-                <div class="icon-block center">
+            <div class="col s0 m3">
+                <div class="icon-block center hide-on-med-and-down">
                     <br>
 
                     {% block uiblock %}
@@ -16,9 +16,16 @@
                     {% endblock %}
 
                 </div>
+                <br>
             </div>
 
             <div class="col s12 m6">
+                <div class="icon-block center">
+                    {% block uiblockmob %}
+
+                    {% endblock %}
+                </div>
+
                 <div class="icon-block btp">
                     <div class="icon-container">
 

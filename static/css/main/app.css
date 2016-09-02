@@ -2408,6 +2408,46 @@
   z-index: -999;
 }
 
+.vertical-line .vmode {
+  left: -50px;
+}
+
+.vertical-line-mobc {
+  height: 50px;
+  width: 0px;
+  left: calc(50%);
+  position: relative;
+  border-left: 1px solid green;
+  z-index: -999;
+}
+
+.vertical-line-mobr {
+  height: 50px;
+  width: 0px;
+  left: calc(50% - 70px);
+  position: relative;
+  border-left: 1px solid green;
+  z-index: -999;
+}
+
+.vertical-line-mobu {
+  height: 50px;
+  width: 0px;
+  left: calc(50% - 5px);
+  position: relative;
+  border-left: 1px solid green;
+  z-index: -999;
+}
+
+.vertical-line-mobd {
+  height: 50px;
+  width: 0px;
+  left: calc(50%);
+  position: relative;
+  border-left: 1px solid green;
+  z-index: -999;
+}
+
 .line-linkage {
   width: calc(50% + 1.5rem);
   height: 0px;
