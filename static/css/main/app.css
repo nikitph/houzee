@@ -2407,7 +2407,6 @@
   border-left: 1px solid #e4e4ee;
   z-index: -999;
 }
-
 .vertical-line .vmode {
   left: -50px;
 }
@@ -2424,7 +2423,7 @@
 .vertical-line-mobr {
   height: 50px;
   width: 0px;
-  left: calc(50% - 70px);
+  left: calc(50% - 95px);
   position: relative;
   border-left: 1px solid green;
   z-index: -999;
@@ -2433,7 +2432,7 @@
 .vertical-line-mobu {
   height: 50px;
   width: 0px;
-  left: calc(50% - 5px);
+  left: calc(50% - 30px);
   position: relative;
   border-left: 1px solid green;
   z-index: -999;
@@ -2442,7 +2441,7 @@
 .vertical-line-mobd {
   height: 50px;
   width: 0px;
-  left: calc(50%);
+  left: calc(50% - 25px);
   position: relative;
   border-left: 1px solid green;
   z-index: -999;

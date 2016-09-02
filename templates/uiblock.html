@@ -4,6 +4,11 @@
         Create {{ displayname }}
     </div>
     <div class="line-linkage activelink"></div>
+    <div class="vertical-line"></div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">{{ displayname }} List</a>
+    </div>
 
 
 {% endif %}
@@ -29,6 +34,11 @@
             {{ displayname }} </a>
     </div>
     <div class="line-linkage"></div>
+    <div class="vertical-line"></div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">{{ displayname }} List</a>
+    </div>
 
 
 {% endif %}
@@ -54,6 +64,11 @@
             {{ displayname }} </a>
     </div>
     <div class="line-linkage"></div>
+    <div class="vertical-line"></div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">{{ displayname }} List</a>
+    </div>
 
 {% endif %}
 
@@ -63,5 +78,10 @@
         Delete {{ displayname }}
     </div>
     <div class="line-linkage activelink"></div>
+    <div class="vertical-line"></div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">{{ displayname }} List</a>
+    </div>
 
 {% endif %}

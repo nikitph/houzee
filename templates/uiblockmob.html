@@ -3,6 +3,11 @@
     <div class="chip blue white-text">
         Create {{ displayname }}
     </div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">List</a>
+    </div>
+
     <div class="vertical-line-mobc"></div>
 
 
@@ -21,6 +26,10 @@
     <div class="chip red lighten-2">
         <a href="{{ url_for('.' + routename,m='d', id=request.args.get('id')) }}">Delete
         </a>
+    </div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">List</a>
     </div>
 
     <div class="vertical-line-mobr"></div>
@@ -43,6 +52,10 @@
         </a>
     </div>
 
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">List</a>
+    </div>
+
     <div class="vertical-line-mobu"></div>
 
 {% endif %}
@@ -52,6 +65,11 @@
     <div class="chip red lighten-2">
         Delete {{ displayname }}
     </div>
+
+    <div class="chip blue white-text">
+        <a href="{{ url_for('.' + routename,m='l') }}">List</a>
+    </div>
+
     <div class="vertical-line-mobd"></div>
 
 {% endif %}
