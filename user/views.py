@@ -299,7 +299,7 @@ def buy():
                      'image': {'widget': wtforms.widgets.HiddenInput()},
                      'user': {'widget': wtforms.widgets.HiddenInput()},
                      'sold': {'widget': wtforms.widgets.HiddenInput()}}
-        return cruder(CrudParams(request, Item, 'item.html', 'item', 'Item', field_args, list_args,
+        return cruder(CrudParams(request, Item, 'buy.html', 'buy', 'Item', field_args, list_args,
                                  g.user.buildingid))
 
     else:

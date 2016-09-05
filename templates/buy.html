@@ -3,14 +3,39 @@
 
 {% block uiblockmob %}
 
-    {% include 'uiblockmob.html' %}
+    {% if mode==2 %}
 
+        <div class="chip blue white-text">
+            View
+        </div>
+
+        <div class="chip blue white-text">
+            <a href="{{ url_for('.' + routename,m='l') }}">List</a>
+        </div>
+
+        <div class="vertical-line-mobu"></div>
+
+
+    {% endif %}
 {% endblock %}
 
 {% block uiblock %}
     <br>
 
-    {% include 'uiblock.html' %}
+    {% if mode==2 %}
+
+        <div class="chip blue white-text">
+            View {{ displayname }}
+        </div>
+        <div class="line-linkage activelink"></div>
+
+        <div class="vertical-line"></div>
+        <div class="chip blue white-text">
+            <a href="{{ url_for('.' + routename,m='l') }}">{{ displayname }} List</a>
+        </div>
+
+
+    {% endif %}
 
 {% endblock %}
 
