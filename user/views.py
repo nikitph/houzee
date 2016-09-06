@@ -128,6 +128,8 @@ def resident():
         User.objects(id=rid).update_one(set__username=str(request.form['email']))
         User.objects(id=rid).update_one(set__password=str(request.form['phone']))
         User.objects(id=rid).update_one(set__active=True)
+        User.objects(id=rid).update_one(set__building=str(g.user.building))
+        User.objects(id=rid).update_one(set__buildingid=str(g.user.buildingid))
         AddRoleCommand().run(user_identifier=str(request.form['email']), role_name='resident')
         return redirect(url_for('.resident', m='r', id=rid))
 
@@ -248,6 +250,7 @@ def profile():
 @login_required
 @bp_user.route('/notify', methods=['GET'])
 def notify():
+    print BulkNotification.objects(building=str(g.user.buildingid)).to_json()
     return render_template('notify.html', news=News.objects(building=str(g.user.buildingid)).order_by('-_id'),
                            events=Event.objects(building=str(g.user.buildingid)),
                            alerts=BulkNotification.objects(building=str(g.user.buildingid)))

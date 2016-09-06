@@ -12,7 +12,7 @@
             if (b != null) {
                 for (var x = 0; x < b.length; x++) {
                     c = b[x];
-                    if (!c.read) {
+                    if (c.building != "") {
                         var sub = '<li><div class="collapsible-header"><span class="red-text text-darken-5">' + c.subject + '</span></div>';
                         var msg = '<div class="collapsible-body blue-text"><p>' + c.body + '</p></div></li>';
                         $('#notifr').append(sub + msg);
